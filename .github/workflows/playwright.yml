@@ -10,10 +10,7 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-  strategy:
-    matrix:
-      shard: [ 1/4, 2/4, 3/4, 4/4 ]
-      # ↑ run 4 machines in parallel
+
     steps:
 
       - uses: actions/checkout@v4
@@ -29,9 +26,8 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test --shard=${{ matrix.shard }}
+        run: npx playwright test
         env:
-          # Pass credentials as GitHub secrets — never hardcode
           LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
           LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
 
