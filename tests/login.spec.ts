@@ -1,38 +1,37 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
+test.describe('Login page', () => {
 
-test.describe('JSONPlaceholder API', () => {
+    // Override storageState — fresh unauthenticated session
+    test.describe('invalid credentials', () => {
+        test.use({ storageState: { cookies: [], origins: [] } });
 
-    test('GET post by ID returns 200', async ({request}) => {
-    const response = await request.get(BASE_URL + '/posts/1');
-    expect(response.status()).toBe(200);
-    const body  = await response.json();
-    expect(body).toHaveProperty('id');
-    expect(body.id).toEqual(1);
-        expect(body.title).toBeTruthy();  // has a title
-        expect(body.userId).toBeTruthy(); // has a userId
-    })
+        test('wrong password shows error', async ({ loginPage }) => {
+            await loginPage.login('student', 'wrongpassword');
+            await expect(loginPage.errorMessage).toHaveText('WRONG TEXT HERE');
+        });
 
-    test('GET post by ID returns 404', async ({request}) => {
-        const response = await request.get(BASE_URL + '/posts/999');
-        expect(response.status()).toBe(404);
-        const body = await response.json();
-        // expect(body).toHaveProperty('id');
-    })
+        test('wrong username shows error', async ({ loginPage }) => {
+            await loginPage.login('wronguser', 'Password123');
+            await expect(loginPage.errorMessage).toBeVisible();
+        });
 
-    test('POST post by ID returns 201', async ({request}) => {
-        const response = await request.post(BASE_URL + '/posts',{ data: { title: '...', body: '...', userId: 1 } });
-        expect(response.status()).toBe(201);
-        const body = await response.json();
-        expect(body).toHaveProperty('id');
-    })
+    });
 
-    test('Delete post by ID returns 200', async ({request}) => {
-        const response = await request.delete(BASE_URL + '/posts/1');
-        expect(response.status()).toBe(200);
-        const body = await response.json();
-        // expect(body).toHaveProperty('id');
-    })
+    test.describe('valid credentials', () => {
+
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/logged-in-successfully/');
+        });
+
+        test('redirects to dashboard', async ({ dashboardPage }) => {
+            await expect(dashboardPage.body).toContainText('Congratulations');
+        });
+
+        test('shows logged in heading', async ({ dashboardPage }) => {
+            await expect(dashboardPage.heading).toContainText('Logged In Successfully');
+        });
+
+    });
+
 });
-

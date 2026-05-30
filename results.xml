@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="24.843468">
+<testsuite name="login.spec.ts" timestamp="2026-05-30T10:28:45.616Z" hostname="ios" tests="1" failures="0" skipped="0" time="21.458" errors="0">
+<testcase name="Login page › invalid credentials › wrong password shows error" classname="login.spec.ts" time="21.458">
+</testcase>
+</testsuite>
+</testsuites>
