@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automation Engineering Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--w:#fff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;--g400:#9ca3af;--g500:#6b7280;--g700:#374151;--g900:#111827;--b50:#eff6ff;--b100:#dbeafe;--b500:#3b82f6;--b600:#2563eb;--b700:#1d4ed8;--gr50:#f0fdf4;--gr100:#dcfce7;--gr600:#16a34a;--gr700:#15803d;--a50:#fffbeb;--a100:#fef3c7;--a600:#d97706;--a700:#b45309;--r50:#fef2f2;--r600:#dc2626;--pu50:#f5f3ff;--pu100:#ede9fe;--pu600:#7c3aed;--pu700:#6d28d9;--sans:"Inter",-apple-system,sans-serif;--mono:"JetBrains Mono",monospace}
+body{font-family:var(--sans);background:var(--g50);color:var(--g900);font-size:14px;line-height:1.6;min-height:100vh}
+.topbar{background:var(--w);border-bottom:1px solid var(--g200);padding:1.1rem 1.5rem}
+.topbar-inner{max-width:1100px;margin:0 auto}
+.site-t{font-size:15px;font-weight:600;color:var(--g900)}.site-s{font-size:12px;color:var(--g400);margin-top:1px;margin-bottom:.9rem}
+.tsw{display:flex;gap:8px;flex-wrap:wrap}
+.tbtn{font-family:var(--sans);font-size:13px;font-weight:500;padding:6px 16px;border-radius:20px;border:1.5px solid var(--g200);background:var(--w);color:var(--g500);cursor:pointer;transition:all .15s}
+.tbtn:hover{border-color:var(--g300);color:var(--g700)}
+.apw{border-color:var(--b500)!important;background:var(--b50)!important;color:var(--b700)!important}
+.acy{border-color:var(--gr600)!important;background:var(--gr50)!important;color:var(--gr700)!important}
+.aap{border-color:var(--a600)!important;background:var(--a50)!important;color:var(--a700)!important}
+.ase{border-color:var(--pu600)!important;background:var(--pu50)!important;color:var(--pu700)!important}
+.layout{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:215px 1fr}
+.sidebar{background:var(--w);border-right:1px solid var(--g200);padding:1rem 0;position:sticky;top:0;height:calc(100vh - 90px);overflow-y:auto}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--g200)}
+.sbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--g400);padding:.5rem 1rem .2rem;display:block}
+.sbtn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;font-family:var(--sans);font-size:13px;color:var(--g500);padding:.42rem 1rem;cursor:pointer;text-align:left;transition:all .15s;border-left:2px solid transparent}
+.sbtn:hover{background:var(--g50);color:var(--g700)}
+.sbtn.apw{background:var(--b50)!important;color:var(--b700)!important;border-left-color:var(--b500)!important;font-weight:500}
+.sbtn.acy{background:var(--gr50)!important;color:var(--gr700)!important;border-left-color:var(--gr600)!important;font-weight:500}
+.sbtn.aap{background:var(--a50)!important;color:var(--a700)!important;border-left-color:var(--a600)!important;font-weight:500}
+.sbtn.ase{background:var(--pu50)!important;color:var(--pu700)!important;border-left-color:var(--pu600)!important;font-weight:500}
+.sbn{font-family:var(--mono);font-size:10px;color:var(--g300);min-width:16px}
+.content{padding:2rem 2.5rem 4rem}
+.tv{display:none}.tv.active{display:block}
+.ch{display:none}.ch.active{display:block}
+.eye{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--b600);margin-bottom:.3rem}
+.eye.cy{color:var(--gr600)}.eye.ap{color:var(--a600)}.eye.se{color:var(--pu600)}
+.ch-t{font-size:1.45rem;font-weight:600;color:var(--g900);margin-bottom:.35rem;line-height:1.3}
+.ch-s{font-size:14px;color:var(--g500);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--g200)}
+h2{font-size:15px;font-weight:600;color:var(--g900);margin:1.5rem 0 .5rem}
+p{font-size:14px;color:var(--g700);line-height:1.75;margin-bottom:.85rem}
+pre{background:var(--g900);color:#e5e7eb;font-family:var(--mono);font-size:12px;line-height:1.75;padding:.9rem 1rem;border-radius:8px;overflow-x:auto;margin-bottom:.9rem;white-space:pre-wrap}
+code{font-family:var(--mono);font-size:12px;background:var(--g100);color:var(--g700);padding:1px 5px;border-radius:4px}
+pre .cm{color:#6b7280}pre .kw{color:#a78bfa}pre .st{color:#86efac}pre .nm{color:#fcd34d}pre .ok{color:#4ade80}pre .bad{color:#f87171}
+.ib{background:var(--b50);border:1px solid var(--b100);border-left:3px solid var(--b500);border-radius:0 6px 6px 0;padding:.8rem 1rem;margin-bottom:.9rem;font-size:13px;color:var(--b700);line-height:1.65}
+.wb{background:var(--a50);border:1px solid var(--a100);border-left:3px solid var(--a600);border-radius:0 6px 6px 0;padding:.8rem 1rem;margin-bottom:.9rem;font-size:13px;color:var(--a700);line-height:1.65}
+.sb2{background:var(--gr50);border:1px solid var(--gr100);border-left:3px solid var(--gr600);border-radius:0 6px 6px 0;padding:.8rem 1rem;margin-bottom:.9rem;font-size:13px;color:var(--gr700);line-height:1.65}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:10px;margin-bottom:1.1rem}
+.cc{background:var(--w);border:1px solid var(--g200);border-radius:8px;padding:.85rem 1rem}
+.cc-t{font-size:12px;font-weight:600;color:var(--g900);margin-bottom:.4rem}
+.cc-b{font-size:12px;color:var(--g500);line-height:1.6}
+.tw{overflow-x:auto;margin-bottom:1.1rem}
+table{width:100%;border-collapse:collapse;font-size:13px;background:var(--w);border:1px solid var(--g200);border-radius:8px;overflow:hidden}
+th{background:var(--g50);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--g500);padding:9px 12px;text-align:left;border-bottom:1px solid var(--g200)}th.hp{color:var(--b600)}
+td{padding:8px 12px;color:var(--g700);border-bottom:1px solid var(--g100);vertical-align:top;font-size:13px}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--g50)}
+.yes{color:var(--gr600);font-weight:500}.no{color:var(--r600)}.meh{color:var(--a600)}
+.qa{background:var(--w);border:1px solid var(--g200);border-radius:8px;margin-bottom:8px;overflow:hidden}
+.qa.open{border-color:var(--b500)}
+.qa-q{display:flex;align-items:flex-start;gap:10px;padding:.8rem 1rem;cursor:pointer;user-select:none}
+.qb{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--b600);background:var(--b50);border:1px solid var(--b100);border-radius:4px;padding:2px 6px;flex-shrink:0;margin-top:1px}
+.qt{font-size:14px;font-weight:500;color:var(--g900);flex:1;line-height:1.5}
+.cv{color:var(--g400);font-size:15px;flex-shrink:0;transition:transform .2s;margin-top:2px}
+.qa.open .cv{transform:rotate(180deg);color:var(--b500)}
+.qa-body{display:none;padding:0 1rem 1rem;border-top:1px solid var(--g100);padding-top:.9rem}
+.qa.open .qa-body{display:block}
+.sc{display:inline-flex;font-size:12px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:.75rem}
+.sc-hi{background:var(--gr50);color:var(--gr700);border:1px solid var(--gr100)}
+.sc-mi{background:var(--a50);color:var(--a700);border:1px solid var(--a100)}
+.ml{background:var(--g50);border:1px solid var(--g200);border-left:3px solid var(--b500);border-radius:0 6px 6px 0;padding:.75rem 1rem;margin-bottom:.8rem}
+.ml-t{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--b600);margin-bottom:.4rem}
+.mi{display:flex;gap:6px;font-size:13px;color:var(--g700);margin-bottom:3px;line-height:1.5}
+.mi::before{content:"\2014";color:var(--g400);flex-shrink:0}
+.al{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--g400);margin-bottom:.35rem}
+.at{font-size:13px;color:var(--g700);line-height:1.75;margin-bottom:.8rem}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-bottom:1.2rem}
+.pi{background:var(--w);border:1px solid var(--g200);border-radius:6px;padding:.6rem .85rem;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--g700)}
+.pk{width:17px;height:17px;border-radius:50%;background:var(--gr50);border:1.5px solid var(--gr600);display:flex;align-items:center;justify-content:center;color:var(--gr600);font-size:9px;flex-shrink:0}
+.cn{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--g200)}
+.cnb{font-family:var(--sans);font-size:13px;font-weight:500;padding:7px 14px;border-radius:6px;border:1px solid var(--g200);background:var(--w);color:var(--g500);cursor:pointer;transition:all .15s}
+.cnb:hover{border-color:var(--g300);color:var(--g700)}.cnb.p{background:var(--b600);border-color:var(--b600);color:var(--w)}.cnb.p:hover{background:var(--b700)}
+.ssm{background:var(--w);border:1px solid var(--g200);border-radius:8px;overflow:hidden;margin-bottom:1.4rem}
+.ssh{background:var(--g50);border-bottom:1px solid var(--g200);padding:.65rem 1rem;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--g500)}
+.sr{display:flex;align-items:center;gap:12px;padding:.62rem 1rem;border-bottom:1px solid var(--g100);font-size:13px}
+.sr:last-child{border-bottom:none}.sq{color:var(--g700);flex:1}
+.bw{width:80px;height:4px;background:var(--g100);border-radius:3px;overflow:hidden}.br{height:100%;border-radius:3px}.bg{background:var(--gr600)}.ba{background:var(--a600)}
+.sn{font-family:var(--mono);font-size:12px;font-weight:500;width:34px;text-align:right}
+.cbl{background:var(--w);border:1px solid var(--g200);border-radius:8px;padding:.9rem 1rem;margin-bottom:10px}
+.cbl-t{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--g500);margin-bottom:.6rem}
+.cr{font-family:var(--mono);font-size:12px;color:var(--g700);padding:3px 0;border-bottom:1px solid var(--g100);line-height:1.6}
+.cr:last-child{border-bottom:none}.cr .hl{color:var(--b600)}.cr .ok{color:var(--gr600)}.cr .wn{color:var(--a600)}
+@media(max-width:768px){.layout{grid-template-columns:1fr}.sidebar{display:none}.content{padding:1.5rem 1rem 3rem}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="site-t">Automation Engineering Study Guide</div>
+    <div class="site-s">Playwright &#x2022; Cypress &#x2022; Appium &#x2022; Selenium &mdash; from scratch to interview ready</div>
+    <div class="tsw">
+      <button class="tbtn apw" onclick="sw('pw',this)">&#9654; Playwright</button>
+      <button class="tbtn" onclick="sw('cy',this)">&#9670; Cypress</button>
+      <button class="tbtn" onclick="sw('ap',this)">&#9632; Appium</button>
+      <button class="tbtn" onclick="sw('se',this)">&#9711; Selenium</button>
+    </div>
+  </div>
+</div>
+<div class="layout">
+<div class="sidebar" id="sidebar"></div>
+<div class="content">
+<div class="tv active" id="tv-pw">
+
+<div class="ch active" id="pw-intro">
+<div class="eye">Playwright &bull; Chapter 01</div>
+<div class="ch-t">What is Playwright?</div>
+<div class="ch-s">Open source E2E testing framework by Microsoft. Controls real browsers. Built for testing from day one.</div>
+<p>Released in 2020, Playwright lets you write code that controls a real browser &mdash; clicking, typing, navigating &mdash; automatically. Multi-browser, multi-language, with a full test runner built in.</p>
+<h2>Why Playwright?</h2>
+<div class="cg">
+<div class="cc"><div class="cc-t">Auto-waiting</div><div class="cc-b">Checks 5 conditions before every action. No manual sleeps.</div></div>
+<div class="cc"><div class="cc-t">All browsers</div><div class="cc-b">Chromium, Firefox, WebKit (Safari) from one API.</div></div>
+<div class="cc"><div class="cc-t">Built-in everything</div><div class="cc-b">Test runner, assertions, reporters, trace viewer in one install.</div></div>
+<div class="cc"><div class="cc-t">Multi-language</div><div class="cc-b">TypeScript, JavaScript, Python, Java, C#.</div></div>
+<div class="cc"><div class="cc-t">Parallel by default</div><div class="cc-b">Tests run across workers simultaneously, zero config.</div></div>
+<div class="cc"><div class="cc-t">API + UI testing</div><div class="cc-b">Test REST APIs and browser UI in the same test file.</div></div>
+</div>
+<h2>Quick comparison</h2>
+<div class="tw"><table><thead><tr><th>Feature</th><th class="hp">Playwright</th><th>Selenium</th><th>Cypress</th></tr></thead><tbody>
+<tr><td>Auto-wait</td><td class="yes">Yes &mdash; built in</td><td class="no">No &mdash; manual</td><td class="yes">Yes</td></tr>
+<tr><td>Safari support</td><td class="yes">Yes (WebKit)</td><td class="yes">Yes</td><td class="no">No</td></tr>
+<tr><td>API testing</td><td class="yes">Built in</td><td class="no">No</td><td class="meh">Limited</td></tr>
+<tr><td>Parallel</td><td class="yes">Native</td><td class="meh">Via Grid</td><td class="meh">Paid only</td></tr>
+<tr><td>Trace viewer</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td></tr>
+</tbody></table></div>
+<div class="cn"><span></span><button class="cnb p" onclick="nav('pw','pw-setup')">Next: Installation &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-setup">
+<div class="eye">Playwright &bull; Chapter 02</div>
+<div class="ch-t">Installation &amp; Setup</div>
+<div class="ch-s">Create a full TypeScript Playwright project in minutes.</div>
+<pre>node --version   <span class="cm"># need Node.js 18+</span>
+mkdir my-automation &amp;&amp; cd my-automation
+npm init playwright@latest</pre>
+<p>When prompted: TypeScript &rarr; Yes, tests folder, GitHub Actions &rarr; Yes, Install browsers &rarr; Yes.</p>
+<h2>Project structure</h2>
+<pre>my-automation/
+├── tests/example.spec.ts
+├── pages/              <span class="cm"># create for POM</span>
+├── playwright.config.ts
+└── package.json</pre>
+<h2>First test</h2>
+<pre><span class="kw">import</span> { test, expect } from <span class="st">'@playwright/test'</span>;
+
+test(<span class="st">'page title'</span>, <span class="kw">async</span> ({ page }) =&gt; {
+  <span class="kw">await</span> page.goto(<span class="st">'https://playwright.dev'</span>);
+  <span class="kw">await</span> expect(page).toHaveTitle(<span class="st">/Playwright/</span>);
+});</pre>
+<h2>Run commands</h2>
+<pre>npx playwright test             <span class="cm"># all tests</span>
+npx playwright test --headed    <span class="cm"># with browser visible</span>
+npx playwright show-report      <span class="cm"># HTML report</span></pre>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-intro')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-config')">Next: Configuration &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-config">
+<div class="eye">Playwright &bull; Chapter 03</div>
+<div class="ch-t">Configuration</div>
+<div class="ch-s">playwright.config.ts controls browsers, timeouts, retries, reporters.</div>
+<pre><span class="kw">import</span> { defineConfig, devices } from <span class="st">'@playwright/test'</span>;
+<span class="kw">export default</span> defineConfig({
+  testDir: <span class="st">'./tests'</span>,
+  fullyParallel: <span class="kw">true</span>,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? <span class="nm">2</span> : <span class="nm">0</span>,
+  workers: process.env.CI ? <span class="nm">4</span> : undefined,
+  reporter: <span class="st">'html'</span>,
+  use: {
+    baseURL: <span class="st">'https://example.com'</span>,
+    trace: <span class="st">'on-first-retry'</span>,
+    screenshot: <span class="st">'only-on-failure'</span>,
+    video: <span class="st">'on-first-retry'</span>,
+  },
+  projects: [
+    { name: <span class="st">'chromium'</span>, use: { ...devices[<span class="st">'Desktop Chrome'</span>] } },
+    { name: <span class="st">'firefox'</span>,  use: { ...devices[<span class="st">'Desktop Firefox'</span>] } },
+    { name: <span class="st">'webkit'</span>,   use: { ...devices[<span class="st">'Desktop Safari'</span>] } },
+    { name: <span class="st">'ios'</span>,      use: { ...devices[<span class="st">'iPhone 14'</span>] } },
+  ],
+});</pre>
+<div class="tw"><table><thead><tr><th>Setting</th><th>Default</th><th>Covers</th></tr></thead><tbody>
+<tr><td>timeout</td><td>30s</td><td>Whole test</td></tr>
+<tr><td>expect.timeout</td><td>5s</td><td>Each assertion</td></tr>
+<tr><td>actionTimeout</td><td>30s</td><td>Each action</td></tr>
+<tr><td>navigationTimeout</td><td>30s</td><td>page.goto()</td></tr>
+</tbody></table></div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-setup')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-loc')">Next: Locators &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-loc">
+<div class="eye">Playwright &bull; Chapter 04</div>
+<div class="ch-t">Locators</div>
+<div class="ch-s">How you find elements. The right locator makes tests resilient to UI changes.</div>
+<pre><span class="ok">// Priority order &mdash; always try from top</span>
+page.getByRole(<span class="st">'button'</span>, { name: <span class="st">'Submit'</span> })   <span class="cm">// 1. Role &mdash; best</span>
+page.getByLabel(<span class="st">'Email Address'</span>)               <span class="cm">// 2. Label &mdash; for inputs</span>
+page.getByPlaceholder(<span class="st">'Enter email'</span>)            <span class="cm">// 3. Placeholder</span>
+page.getByText(<span class="st">'Congratulations'</span>)              <span class="cm">// 4. Text &mdash; paragraphs</span>
+page.getByTestId(<span class="st">'submit-btn'</span>)                 <span class="cm">// 5. TestId &mdash; data-testid</span>
+page.locator(<span class="st">'#error-msg'</span>)                     <span class="cm">// 6. ID &mdash; solid fallback</span>
+<span class="bad">page.locator('.btn-primary')                    // 7. Class &mdash; fragile</span></pre>
+<h2>Chaining &mdash; scope inside parent</h2>
+<pre>page.getByTestId(<span class="st">'order-row'</span>)
+  .filter({ hasText: <span class="st">'Samsung Galaxy'</span> })
+  .locator(<span class="st">'.status'</span>)</pre>
+<div class="wb">getByText('Error') matches all elements containing that text including nested ones. Use locator('#error') or getByRole('alert') to be specific.</div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-config')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-act')">Next: Actions &amp; Assertions &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-act">
+<div class="eye">Playwright &bull; Chapter 05</div>
+<div class="ch-t">Actions &amp; Assertions</div>
+<div class="ch-s">Actions control the browser. Assertions verify outcomes. Always await both.</div>
+<h2>Actions</h2>
+<pre><span class="kw">await</span> page.goto(<span class="st">'/login'</span>);
+<span class="kw">await</span> page.getByLabel(<span class="st">'Email'</span>).fill(<span class="st">'user@example.com'</span>);
+<span class="kw">await</span> page.getByLabel(<span class="st">'Password'</span>).fill(<span class="st">'secret'</span>);
+<span class="kw">await</span> page.getByRole(<span class="st">'button'</span>, { name: <span class="st">'Login'</span> }).click();
+<span class="kw">await</span> page.getByRole(<span class="st">'checkbox'</span>).check();
+<span class="kw">await</span> page.getByRole(<span class="st">'combobox'</span>).selectOption(<span class="st">'option1'</span>);
+<span class="kw">await</span> page.keyboard.press(<span class="st">'Enter'</span>);</pre>
+<h2>Web-first assertions (always await)</h2>
+<pre><span class="kw">await</span> expect(locator).toBeVisible();
+<span class="kw">await</span> expect(locator).toHaveText(<span class="st">'exact'</span>);
+<span class="kw">await</span> expect(locator).toContainText(<span class="st">'partial'</span>);
+<span class="kw">await</span> expect(locator).toBeEnabled();
+<span class="kw">await</span> expect(locator).toHaveValue(<span class="st">'val'</span>);
+<span class="kw">await</span> expect(locator).toHaveCount(<span class="nm">3</span>);
+<span class="kw">await</span> expect(page).toHaveURL(<span class="st">'/dashboard'</span>);</pre>
+<h2>Value assertions (no await)</h2>
+<pre>expect(response.status()).toBe(<span class="nm">200</span>);
+expect(items).toHaveLength(<span class="nm">3</span>);
+expect(body.title).toBe(<span class="st">'Post'</span>);</pre>
+<div class="ib">If inside expect() is a Playwright locator pointing at the browser: always await. If it is a plain JS value: no await needed.</div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-loc')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-wait')">Next: Auto-waiting &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-wait">
+<div class="eye">Playwright &bull; Chapter 06</div>
+<div class="ch-t">Auto-Waiting</div>
+<div class="ch-s">Playwright checks 5 conditions before executing any action automatically. This eliminates most flaky tests.</div>
+<div class="cg">
+<div class="cc"><div class="cc-t">1. Attached to DOM</div><div class="cc-b">Element exists, not detached.</div></div>
+<div class="cc"><div class="cc-t">2. Visible</div><div class="cc-b">Not hidden by display:none or zero opacity.</div></div>
+<div class="cc"><div class="cc-t">3. Stable</div><div class="cc-b">Not animating, position unchanged between frames.</div></div>
+<div class="cc"><div class="cc-t">4. Receives events</div><div class="cc-b">Nothing overlapping it like a loading spinner.</div></div>
+<div class="cc"><div class="cc-t">5. Enabled</div><div class="cc-b">Not disabled on input or button.</div></div>
+</div>
+<p>Playwright polls every 16ms until all conditions pass or the 30-second timeout expires.</p>
+<pre><span class="cm">// Selenium &mdash; 3 lines, manual</span>
+<span class="kw">new</span> WebDriverWait(driver, Duration.ofSeconds(10))
+  .until(ExpectedConditions.elementToBeClickable(By.id('btn')));
+driver.findElement(By.id('btn')).click();
+
+<span class="cm">// Playwright &mdash; zero boilerplate, 5 checks automatic</span>
+<span class="kw">await</span> page.click(<span class="st">'#btn'</span>);
+
+<span class="cm">// Web-first assertions also auto-retry</span>
+<span class="kw">await</span> expect(page.locator(<span class="st">'.status'</span>)).toHaveText(<span class="st">'Saved'</span>);</pre>
+<div class="wb">Never commit page.waitForTimeout() to tests. It is a sleep. Always use web-first assertions instead.</div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-act')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-pom')">Next: Page Object Model &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-pom">
+<div class="eye">Playwright &bull; Chapter 07</div>
+<div class="ch-t">Page Object Model</div>
+<div class="ch-s">The most important pattern in automation engineering. Separates HOW you interact from WHAT you test.</div>
+<h2>LoginPage.ts</h2>
+<pre><span class="kw">import</span> { Page, Locator } from <span class="st">'@playwright/test'</span>;
+
+<span class="kw">export class</span> LoginPage {
+  <span class="kw">readonly</span> page: Page;
+  <span class="kw">readonly</span> usernameInput: Locator;
+  <span class="kw">readonly</span> passwordInput: Locator;
+  <span class="kw">readonly</span> submitButton: Locator;
+  <span class="kw">readonly</span> errorMessage: Locator;
+
+  constructor(page: Page) {
+    this.page          = page;
+    this.usernameInput = page.getByLabel(<span class="st">'Username'</span>);
+    this.passwordInput = page.getByLabel(<span class="st">'Password'</span>);
+    this.submitButton  = page.getByRole(<span class="st">'button'</span>, { name: <span class="st">'Submit'</span> });
+    this.errorMessage  = page.locator(<span class="st">'#error'</span>);
+  }
+
+  async goto() { await this.page.goto(<span class="st">'/practice-test-login/'</span>); }
+  async login(user: string, pass: string) {
+    await this.usernameInput.fill(user);
+    await this.passwordInput.fill(pass);
+    await this.submitButton.click();
+  }
+}</pre>
+<h2>Clean test using POM</h2>
+<pre>test(<span class="st">'wrong password shows error'</span>, <span class="kw">async</span> ({ page }) =&gt; {
+  <span class="kw">const</span> loginPage = <span class="kw">new</span> LoginPage(page);
+  <span class="kw">await</span> loginPage.goto();
+  <span class="kw">await</span> loginPage.login(<span class="st">'student'</span>, <span class="st">'wrongpass'</span>);
+  <span class="kw">await</span> expect(loginPage.errorMessage).toBeVisible();
+});</pre>
+<div class="sb2">If it touches the DOM (locators, clicks, fills) it goes in the page class. If it checks an outcome (expect) it goes in the test file.</div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-wait')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-fix')">Next: Fixtures &amp; Hooks &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-fix">
+<div class="eye">Playwright &bull; Chapter 08</div>
+<div class="ch-t">Fixtures &amp; Hooks</div>
+<div class="ch-s">Fixtures inject ready-made objects automatically. beforeEach runs setup before each test.</div>
+<div class="tw"><table><thead><tr><th>Use</th><th>Scope</th><th>When</th></tr></thead><tbody>
+<tr><td>beforeEach</td><td>One describe block, one file</td><td>Simple setup for one block</td></tr>
+<tr><td>Fixtures</td><td>Entire project, any file</td><td>Page objects used across files</td></tr>
+<tr><td>beforeAll</td><td>One describe block</td><td>Non-browser setup, DB seed</td></tr>
+<tr><td>afterEach</td><td>One describe block</td><td>Screenshots, logs</td></tr>
+</tbody></table></div>
+<h2>fixtures.ts</h2>
+<pre><span class="kw">import</span> { test <span class="kw">as</span> base } from <span class="st">'@playwright/test'</span>;
+<span class="kw">import</span> { LoginPage } from <span class="st">'../pages/LoginPage'</span>;
+
+<span class="kw">type</span> F = { loginPage: LoginPage };
+
+<span class="kw">export const</span> test = base.extend&lt;F&gt;({
+  loginPage: <span class="kw">async</span> ({ page }, use) =&gt; {
+    <span class="kw">const</span> lp = <span class="kw">new</span> LoginPage(page);
+    <span class="kw">await</span> lp.goto();     <span class="cm">// setup before test</span>
+    <span class="kw">await</span> use(lp);        <span class="cm">// test runs here</span>
+                          <span class="cm">// teardown after use()</span>
+  },
+});
+<span class="kw">export</span> { expect } from <span class="st">'@playwright/test'</span>;</pre>
+<h2>Using fixtures</h2>
+<pre><span class="kw">import</span> { test, expect } from <span class="st">'./fixtures'</span>;  <span class="cm">// not @playwright/test</span>
+
+test(<span class="st">'login fails'</span>, <span class="kw">async</span> ({ loginPage }) =&gt; {
+  <span class="kw">await</span> loginPage.login(<span class="st">'student'</span>, <span class="st">'wrong'</span>);
+  <span class="kw">await</span> expect(loginPage.errorMessage).toBeVisible();
+});</pre>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-pom')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-auth')">Next: Authentication &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-auth">
+<div class="eye">Playwright &bull; Chapter 09</div>
+<div class="ch-t">Authentication</div>
+<div class="ch-s">Log in once, reuse the session. 50 tests x 3 seconds = 150 seconds saved.</div>
+<h2>global.setup.ts</h2>
+<pre><span class="kw">import</span> { chromium } from <span class="st">'@playwright/test'</span>;
+
+<span class="kw">async function</span> globalSetup() {
+  <span class="kw">const</span> browser = <span class="kw">await</span> chromium.launch();
+  <span class="kw">const</span> page    = <span class="kw">await</span> browser.newPage();
+  <span class="kw">await</span> page.goto(<span class="st">'https://example.com/login'</span>);
+  <span class="kw">await</span> page.getByLabel(<span class="st">'Username'</span>).fill(<span class="st">'student'</span>);
+  <span class="kw">await</span> page.getByLabel(<span class="st">'Password'</span>).fill(<span class="st">'Password123'</span>);
+  <span class="kw">await</span> page.getByRole(<span class="st">'button'</span>, { name: <span class="st">'Submit'</span> }).click();
+  <span class="kw">await</span> page.context().storageState({ path: <span class="st">'auth.json'</span> });
+  <span class="kw">await</span> browser.close();
+}
+<span class="kw">export default</span> globalSetup;</pre>
+<h2>playwright.config.ts</h2>
+<pre>globalSetup: <span class="st">'./tests/global.setup.ts'</span>,
+use: { storageState: <span class="st">'auth.json'</span> },  <span class="cm">// auto-loads every test</span></pre>
+<h2>Override for login tests</h2>
+<pre>test.describe(<span class="st">'login flow'</span>, () =&gt; {
+  test.use({ storageState: { cookies: [], origins: [] } });
+});</pre>
+<div class="wb">Add auth.json to .gitignore. Contains session tokens &mdash; never commit to git.</div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-fix')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-net')">Next: Network Mocking &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-net">
+<div class="eye">Playwright &bull; Chapter 10</div>
+<div class="ch-t">Network Mocking</div>
+<div class="ch-s">Intercept HTTP requests and return controlled responses without hitting the real backend.</div>
+<pre><span class="cm">// Fulfill &mdash; return fake response</span>
+<span class="kw">await</span> page.route(<span class="st">'**/api/orders'</span>, route =&gt; route.fulfill({
+  status: <span class="nm">200</span>, contentType: <span class="st">'application/json'</span>,
+  body: JSON.stringify([{ id: <span class="st">'ORD-001'</span>, status: <span class="st">'Delivered'</span> }])
+}));
+
+<span class="cm">// Abort &mdash; simulate network failure</span>
+<span class="kw">await</span> page.route(<span class="st">'**/api/orders'</span>, route =&gt; route.abort());
+
+<span class="cm">// Continue &mdash; let through, use for logging</span>
+<span class="kw">await</span> page.route(<span class="st">'**/*'</span>, route =&gt; route.continue());
+
+<span class="cm">// Block analytics to speed tests up</span>
+<span class="kw">await</span> page.route(<span class="st">'**analytics**'</span>, route =&gt; route.abort());</pre>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-auth')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-api')">Next: API Testing &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-api">
+<div class="eye">Playwright &bull; Chapter 11</div>
+<div class="ch-t">API Testing</div>
+<div class="ch-s">Test REST APIs with the request fixture. Combine with UI for powerful hybrid tests.</div>
+<pre>test(<span class="st">'GET returns 200'</span>, <span class="kw">async</span> ({ request }) =&gt; {
+  <span class="kw">const</span> res  = <span class="kw">await</span> request.get(<span class="st">'https://jsonplaceholder.typicode.com/posts/1'</span>);
+  expect(res.status()).toBe(<span class="nm">200</span>);
+  <span class="kw">const</span> body = <span class="kw">await</span> res.json();
+  expect(body.id).toBe(<span class="nm">1</span>);
+});
+
+test(<span class="st">'API + UI hybrid'</span>, <span class="kw">async</span> ({ request, page }) =&gt; {
+  <span class="cm">// Create via API (fast)</span>
+  <span class="kw">const</span> res = <span class="kw">await</span> request.post(<span class="st">'/api/products'</span>, { data: { name: <span class="st">'Widget'</span> } });
+  expect(res.status()).toBe(<span class="nm">201</span>);
+  <span class="cm">// Verify in UI</span>
+  <span class="kw">await</span> page.goto(<span class="st">'/products'</span>);
+  <span class="kw">await</span> expect(page.getByText(<span class="st">'Widget'</span>)).toBeVisible();
+});</pre>
+<div class="sb2">Use API to create test data. Use UI only to verify what the user sees. Never create test data through the UI &mdash; it is slow and fragile.</div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-net')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-mob')">Next: Mobile Emulation &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-mob">
+<div class="eye">Playwright &bull; Chapter 12</div>
+<div class="ch-t">Mobile Emulation</div>
+<div class="ch-s">Emulate 70+ mobile devices for mobile web. This is NOT native app testing &mdash; use Appium for that.</div>
+<pre>projects: [
+  { name: <span class="st">'desktop'</span>, use: { ...devices[<span class="st">'Desktop Chrome'</span>] } },
+  { name: <span class="st">'ios'</span>,     use: { ...devices[<span class="st">'iPhone 14'</span>] } },
+  { name: <span class="st">'android'</span>, use: { ...devices[<span class="st">'Pixel 7'</span>] } },
+]
+
+<span class="cm">// Tests stay identical &mdash; locators do not change</span>
+test(<span class="st">'login works on iPhone'</span>, <span class="kw">async</span> ({ page }) =&gt; {
+  <span class="kw">await</span> page.goto(<span class="st">'/login'</span>);
+  <span class="kw">await</span> page.getByLabel(<span class="st">'Username'</span>).fill(<span class="st">'student'</span>);
+  <span class="kw">await</span> page.getByRole(<span class="st">'button'</span>, { name: <span class="st">'Submit'</span> }).click();
+  <span class="kw">await</span> expect(page).toHaveURL(<span class="st">'/dashboard'</span>);
+});
+
+<span class="cm">// Codegen with device</span>
+npx playwright codegen --device="iPhone 14" https://example.com</pre>
+<div class="wb">If a site serves different HTML on mobile (hamburger menu, different IDs), locators may differ. Verify with codegen or DevTools mobile mode.</div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-api')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-ci')">Next: CI/CD &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-ci">
+<div class="eye">Playwright &bull; Chapter 13</div>
+<div class="ch-t">CI/CD &amp; GitHub Actions</div>
+<div class="ch-s">Run tests automatically on every push. Playwright generates the workflow file for you.</div>
+<pre>name: Playwright Tests
+on:
+  push:         { branches: [ main ] }
+  pull_request: { branches: [ main ] }
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: lts/* }
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npx playwright test
+        env:
+          LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with: { name: playwright-report, path: playwright-report/ }</pre>
+<pre><span class="cm">// playwright.config.ts</span>
+retries: process.env.CI ? <span class="nm">2</span> : <span class="nm">0</span>,
+workers: process.env.CI ? <span class="nm">4</span> : undefined,</pre>
+<div class="sb2">Store credentials as GitHub Secrets &mdash; never hardcode in yaml. Repo Settings &rarr; Secrets and variables &rarr; Actions.</div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-mob')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-dbg')">Next: Debugging &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-dbg">
+<div class="eye">Playwright &bull; Chapter 14</div>
+<div class="ch-t">Debugging &amp; Tracing</div>
+<div class="ch-s">Four tools to find and fix failing tests. Trace viewer is essential for CI failures.</div>
+<pre><span class="cm">// 1. See the browser</span>
+npx playwright test --headed
+
+<span class="cm">// 2. Step through line by line (Inspector opens)</span>
+npx playwright test --debug
+
+<span class="cm">// 3. Pause mid-test at a specific point</span>
+<span class="kw">await</span> page.pause();
+
+<span class="cm">// 4. View trace from CI failure</span>
+npx playwright show-report path/to/playwright-report</pre>
+<div class="cg">
+<div class="cc"><div class="cc-t">Timeline</div><div class="cc-b">Scrub like a video through every step.</div></div>
+<div class="cc"><div class="cc-t">Screenshots</div><div class="cc-b">Before and after every action.</div></div>
+<div class="cc"><div class="cc-t">Network</div><div class="cc-b">Every API call with status codes and bodies.</div></div>
+<div class="cc"><div class="cc-t">Console</div><div class="cc-b">console.log output and JS errors from the page.</div></div>
+</div>
+<div class="tw"><table><thead><tr><th>CI failure cause</th><th>Fix</th></tr></thead><tbody>
+<tr><td>CI machine slower</td><td>Increase actionTimeout</td></tr>
+<tr><td>Headless differences</td><td>Run locally with --headed to compare</td></tr>
+<tr><td>Missing env variables</td><td>Check GitHub Secrets configured</td></tr>
+<tr><td>No test data in CI</td><td>Create data in globalSetup via API</td></tr>
+<tr><td>auth.json missing</td><td>Check global.setup.ts ran successfully</td></tr>
+</tbody></table></div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-ci')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-cheat')">Next: Cheat Sheet &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-cheat">
+<div class="eye">Playwright &bull; Chapter 15</div>
+<div class="ch-t">Cheat Sheet</div>
+<div class="ch-s">Everything in one place for quick reference.</div>
+<div class="cg">
+<div class="cbl"><div class="cbl-t">Locator priority</div>
+<div class="cr"><span class="hl">1</span> getByRole('button',{name})</div>
+<div class="cr"><span class="hl">2</span> getByLabel('Email')</div>
+<div class="cr"><span class="hl">3</span> getByPlaceholder('Enter')</div>
+<div class="cr"><span class="hl">4</span> getByText('text')</div>
+<div class="cr"><span class="hl">5</span> getByTestId('id')</div>
+<div class="cr"><span class="hl">6</span> locator('#id')</div>
+<div class="cr"><span class="wn">7</span> locator('.class') fragile</div>
+</div>
+<div class="cbl"><div class="cbl-t">Web-first assertions</div>
+<div class="cr">toBeVisible() / toBeHidden()</div>
+<div class="cr">toHaveText('exact')</div>
+<div class="cr">toContainText('partial')</div>
+<div class="cr">toBeEnabled() / toBeDisabled()</div>
+<div class="cr">toHaveValue('val')</div>
+<div class="cr">toHaveURL('/path')</div>
+<div class="cr">toHaveCount(3)</div>
+</div>
+<div class="cbl"><div class="cbl-t">CLI commands</div>
+<div class="cr">npx playwright test</div>
+<div class="cr">... --headed</div>
+<div class="cr">... --debug</div>
+<div class="cr">... --project=ios</div>
+<div class="cr">... --grep "login"</div>
+<div class="cr">npx playwright show-report</div>
+<div class="cr">npx playwright codegen URL</div>
+</div>
+<div class="cbl"><div class="cbl-t">5 actionability checks</div>
+<div class="cr"><span class="ok">1</span> Attached to DOM</div>
+<div class="cr"><span class="ok">2</span> Visible</div>
+<div class="cr"><span class="ok">3</span> Stable (not animating)</div>
+<div class="cr"><span class="ok">4</span> Receives pointer events</div>
+<div class="cr"><span class="ok">5</span> Enabled</div>
+<div class="cr">Retries 16ms &rarr; 30s timeout</div>
+</div>
+<div class="cbl"><div class="cbl-t">Auth</div>
+<div class="cr">global.setup.ts runs once</div>
+<div class="cr">storageState({path:'auth.json'})</div>
+<div class="cr">use:{storageState:'auth.json'}</div>
+<div class="cr">test.use({storageState:{...}})</div>
+<div class="cr">auth.json in .gitignore</div>
+</div>
+<div class="cbl"><div class="cbl-t">Network</div>
+<div class="cr">route.fulfill({status,body})</div>
+<div class="cr">route.abort()</div>
+<div class="cr">route.continue()</div>
+<div class="cr">'**/api/**' pattern</div>
+<div class="cr">'**analytics**' to block</div>
+</div>
+</div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-dbg')">&larr; Prev</button><button class="cnb p" onclick="nav('pw','pw-int')">Next: Interview Q&amp;A &rarr;</button></div>
+</div>
+
+<div class="ch" id="pw-int">
+<div class="eye">Playwright &bull; Chapter 16</div>
+<div class="ch-t">Interview Q&amp;A</div>
+<div class="ch-s">Your scores and ideal answers from the full interview session.</div>
+<div class="ssm"><div class="ssh">Your interview scores</div>
+<div class="sr"><span class="sq">Tell me about yourself</span><div class="bw"><div class="br bg" style="width:80%"></div></div><span class="sn" style="color:#16a34a">8/10</span></div>
+<div class="sr"><span class="sq">Playwright vs Selenium</span><div class="bw"><div class="br bg" style="width:70%"></div></div><span class="sn" style="color:#16a34a">7/10</span></div>
+<div class="sr"><span class="sq">Page Object Model</span><div class="bw"><div class="br bg" style="width:80%"></div></div><span class="sn" style="color:#16a34a">8/10</span></div>
+<div class="sr"><span class="sq">locator vs getByRole</span><div class="bw"><div class="br bg" style="width:80%"></div></div><span class="sn" style="color:#16a34a">8/10</span></div>
+<div class="sr"><span class="sq">Auto-waiting</span><div class="bw"><div class="br ba" style="width:60%"></div></div><span class="sn" style="color:#d97706">6/10</span></div>
+<div class="sr"><span class="sq">Authentication</span><div class="bw"><div class="br bg" style="width:70%"></div></div><span class="sn" style="color:#16a34a">7/10</span></div>
+<div class="sr"><span class="sq">Network mocking</span><div class="bw"><div class="br bg" style="width:85%"></div></div><span class="sn" style="color:#16a34a">8.5/10</span></div>
+<div class="sr"><span class="sq">CI/CD integration</span><div class="bw"><div class="br bg" style="width:80%"></div></div><span class="sn" style="color:#16a34a">8/10</span></div>
+<div class="sr"><span class="sq">beforeEach vs fixtures</span><div class="bw"><div class="br ba" style="width:50%"></div></div><span class="sn" style="color:#d97706">5/10</span></div>
+<div class="sr"><span class="sq">Debug CI failures</span><div class="bw"><div class="br ba" style="width:60%"></div></div><span class="sn" style="color:#d97706">6/10</span></div>
+</div>
+<div class="wb" style="margin-bottom:1.2rem">Strengthen: auto-waiting (5 checks), beforeEach vs fixtures (scope), CI debugging (lead with trace viewer).</div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q1</span><span class="qt">What is Playwright and why choose it over Selenium?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><span class="sc sc-hi">7/10</span><div class="al">Ideal answer</div><div class="at">"Playwright is an open source framework by Microsoft supporting TypeScript, JavaScript, Python, Java, and C#. The biggest advantage over Selenium is auto-waiting &mdash; Playwright automatically checks that elements are ready before acting, eliminating most flakiness. Selenium has no auto-wait so you add waits manually. Playwright comes with everything built in &mdash; test runner, assertions, reporters, trace viewer &mdash; whereas Selenium needs separate tools. It supports Chromium, Firefox, and WebKit giving Safari coverage without a Mac."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q2</span><span class="qt">What is the Page Object Model and why do we use it?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><span class="sc sc-hi">8/10</span><div class="al">Ideal answer</div><div class="at">"POM is a design pattern where each page has its own class holding locators and actions &mdash; that is the HOW. What you verify lives in the test file &mdash; that is the WHAT. If a button label changes, I fix it in one page class, not 50 test files. Page classes are reusable &mdash; LoginPage is used by login tests, checkout tests, and any test needing authentication."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q3</span><span class="qt">What is auto-waiting and how does it prevent flaky tests?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><span class="sc sc-mi">6/10 &mdash; strengthen</span><div class="al">Ideal answer</div><div class="at">"Auto-waiting checks five conditions before any action: attached to DOM, visible, stable (not animating), enabled, and receives pointer events. It retries every 16ms until all pass or the 30-second timeout hits. This replaces all manual WebDriverWait boilerplate from Selenium. Web-first assertions like expect(locator).toBeVisible() also auto-retry."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q4</span><span class="qt">beforeEach vs fixtures &mdash; what is the difference?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><span class="sc sc-mi">5/10 &mdash; strengthen</span><div class="al">Ideal answer</div><div class="at">"beforeEach runs before every test in a specific describe block &mdash; scoped to that one file. Fixtures are defined once and injected into any test across any file in the project. Fixtures also handle teardown automatically after use(). I use beforeEach for simple navigation in one block and fixtures for page objects needed across multiple files."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q5</span><span class="qt">Test passes locally but fails in CI. How do you debug?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><span class="sc sc-mi">6/10 &mdash; strengthen</span><div class="al">Ideal answer</div><div class="at">"First I add retries to check if it is flaky. Then I download the playwright-report artifact from GitHub Actions and open it with npx playwright show-report &mdash; the trace viewer replays exactly what happened with screenshots, network calls, and console errors. Common causes: timing because CI is slower, headless mode differences, missing environment variables, and test data that exists locally but not in CI."</div></div></div>
+<div class="cn"><button class="cnb" onclick="nav('pw','pw-cheat')">&larr; Prev</button><span style="font-size:13px;color:var(--g400)">End of Playwright</span></div>
+</div>
+
+</div>
+<div class="tv" id="tv-cy">
+<div class="ch active" id="cy-intro">
+<div class="eye cy">Cypress &bull; Chapter 01</div><div class="ch-t">What is Cypress?</div>
+<div class="ch-s">Frontend-focused E2E framework. Runs inside the browser. Great DX for React/Vue/Angular teams.</div>
+<p>Cypress runs directly inside the browser unlike Playwright which uses external protocols. This gives unique capabilities but also important limitations.</p>
+<h2>Key strengths</h2>
+<div class="cg">
+<div class="cc"><div class="cc-t">Easy to learn</div><div class="cc-b">Readable syntax, excellent docs, popular with frontend devs.</div></div>
+<div class="cc"><div class="cc-t">Auto-waiting</div><div class="cc-b">Automatically retries commands and assertions until they pass.</div></div>
+<div class="cc"><div class="cc-t">Time-travel debugging</div><div class="cc-b">DOM snapshots for every command in the Cypress UI.</div></div>
+<div class="cc"><div class="cc-t">cy.intercept()</div><div class="cc-b">Network interception built in. Stub API responses easily.</div></div>
+</div>
+<h2>Key limitations</h2>
+<div class="cg">
+<div class="cc"><div class="cc-t">No Safari</div><div class="cc-b">Chrome, Firefox, Edge only. No WebKit.</div></div>
+<div class="cc"><div class="cc-t">JS/TS only</div><div class="cc-b">Cannot use Python, Java, or C#.</div></div>
+<div class="cc"><div class="cc-t">No multi-tab</div><div class="cc-b">Cannot test across multiple browser tabs.</div></div>
+<div class="cc"><div class="cc-t">Parallel = paid</div><div class="cc-b">Requires Cypress Cloud paid plan.</div></div>
+</div>
+<div class="ib">Choose Cypress when: React/Vue/Angular app, no Safari needed, value DX, frontend-focused team.</div>
+<div class="cn"><span></span><button class="cnb p" onclick="nav('cy','cy-setup')">Next: Setup &rarr;</button></div>
+</div>
+
+<div class="ch" id="cy-setup">
+<div class="eye cy">Cypress &bull; Chapter 02</div><div class="ch-t">Installation &amp; Setup</div>
+<div class="ch-s">Get Cypress running quickly.</div>
+<pre>npm install cypress --save-dev
+npx cypress open   <span class="cm"># opens UI, creates config</span></pre>
+<h2>cypress.config.ts</h2>
+<pre><span class="kw">import</span> { defineConfig } from <span class="st">'cypress'</span>;
+<span class="kw">export default</span> defineConfig({
+  e2e: {
+    baseUrl: <span class="st">'http://localhost:3000'</span>,
+    viewportWidth: <span class="nm">1280</span>, viewportHeight: <span class="nm">720</span>,
+    defaultCommandTimeout: <span class="nm">10000</span>,
+    retries: { runMode: <span class="nm">2</span>, openMode: <span class="nm">0</span> },
+  },
+});</pre>
+<h2>First test</h2>
+<pre>describe(<span class="st">'Login'</span>, () =&gt; {
+  it(<span class="st">'should login successfully'</span>, () =&gt; {
+    cy.visit(<span class="st">'/login'</span>);
+    cy.get(<span class="st">'#username'</span>).type(<span class="st">'student'</span>);
+    cy.get(<span class="st">'#password'</span>).type(<span class="st">'Password123'</span>);
+    cy.get(<span class="st">'button[type=submit]'</span>).click();
+    cy.url().should(<span class="st">'include'</span>, <span class="st">'/dashboard'</span>);
+  });
+});</pre>
+<div class="cn"><button class="cnb" onclick="nav('cy','cy-intro')">&larr; Prev</button><button class="cnb p" onclick="nav('cy','cy-loc')">Next: Locators &rarr;</button></div>
+</div>
+
+<div class="ch" id="cy-loc">
+<div class="eye cy">Cypress &bull; Chapter 03</div><div class="ch-t">Locators &amp; Selectors</div>
+<div class="ch-s">Cypress uses cy.get() with CSS selectors. Different syntax from Playwright, same concepts.</div>
+<pre><span class="cm">// CSS selectors</span>
+cy.get(<span class="st">'#username'</span>)
+cy.get(<span class="st">'.btn-primary'</span>)
+cy.get(<span class="st">'button[type="submit"]'</span>)
+
+<span class="cm">// Data attributes (recommended)</span>
+cy.get(<span class="st">'[data-cy="submit-btn"]'</span>)
+cy.get(<span class="st">'[data-testid="username"]'</span>)
+
+<span class="cm">// By text</span>
+cy.contains(<span class="st">'Submit'</span>)
+cy.contains(<span class="st">'button'</span>, <span class="st">'Submit'</span>)
+
+<span class="cm">// Scope inside parent</span>
+cy.get(<span class="st">'.order-list'</span>).contains(<span class="st">'Samsung Galaxy'</span>)</pre>
+<div class="tw"><table><thead><tr><th>Goal</th><th>Playwright</th><th>Cypress</th></tr></thead><tbody>
+<tr><td>Button by text</td><td>getByRole('button',{name:'Submit'})</td><td>cy.contains('button','Submit')</td></tr>
+<tr><td>Input by label</td><td>getByLabel('Email')</td><td>cy.get('[for="email"]')</td></tr>
+<tr><td>By test ID</td><td>getByTestId('submit')</td><td>cy.get('[data-cy="submit"]')</td></tr>
+<tr><td>By ID</td><td>locator('#error')</td><td>cy.get('#error')</td></tr>
+</tbody></table></div>
+<div class="cn"><button class="cnb" onclick="nav('cy','cy-setup')">&larr; Prev</button><button class="cnb p" onclick="nav('cy','cy-act')">Next: Actions &amp; Assertions &rarr;</button></div>
+</div>
+
+<div class="ch" id="cy-act">
+<div class="eye cy">Cypress &bull; Chapter 04</div><div class="ch-t">Actions &amp; Assertions</div>
+<div class="ch-s">Chainable jQuery-like syntax. Looks synchronous but is async under the hood.</div>
+<h2>Actions</h2>
+<pre>cy.visit(<span class="st">'/login'</span>);
+cy.get(<span class="st">'#username'</span>).type(<span class="st">'student'</span>);
+cy.get(<span class="st">'#password'</span>).type(<span class="st">'Password123'</span>);
+cy.get(<span class="st">'button[type=submit]'</span>).click();
+cy.get(<span class="st">'#remember'</span>).check();
+cy.get(<span class="st">'select'</span>).select(<span class="st">'option1'</span>);
+cy.get(<span class="st">'input'</span>).clear().type(<span class="st">'new value'</span>);</pre>
+<h2>Assertions</h2>
+<pre>cy.url().should(<span class="st">'include'</span>, <span class="st">'/dashboard'</span>);
+cy.get(<span class="st">'h1'</span>).should(<span class="st">'contain'</span>, <span class="st">'Welcome'</span>);
+cy.get(<span class="st">'h1'</span>).should(<span class="st">'have.text'</span>, <span class="st">'Welcome Back'</span>);
+cy.get(<span class="st">'#error'</span>).should(<span class="st">'be.visible'</span>);
+cy.get(<span class="st">'button'</span>).should(<span class="st">'be.disabled'</span>);
+cy.get(<span class="st">'.item'</span>).should(<span class="st">'have.length'</span>, <span class="nm">3</span>);</pre>
+<div class="cn"><button class="cnb" onclick="nav('cy','cy-loc')">&larr; Prev</button><button class="cnb p" onclick="nav('cy','cy-net')">Next: Network &rarr;</button></div>
+</div>
+
+<div class="ch" id="cy-net">
+<div class="eye cy">Cypress &bull; Chapter 05</div><div class="ch-t">Network &amp; cy.intercept()</div>
+<div class="ch-s">Excellent built-in network interception. Stub responses, simulate errors, wait for requests.</div>
+<pre><span class="cm">// Stub with fixture file</span>
+cy.intercept(<span class="st">'GET'</span>, <span class="st">'/api/orders'</span>, { fixture: <span class="st">'orders.json'</span> });
+
+<span class="cm">// Stub with inline response</span>
+cy.intercept(<span class="st">'GET'</span>, <span class="st">'/api/orders'</span>, {
+  statusCode: <span class="nm">200</span>,
+  body: [{ id: <span class="st">'ORD-001'</span> }]
+});
+
+<span class="cm">// Wait for a specific request</span>
+cy.intercept(<span class="st">'POST'</span>, <span class="st">'/api/login'</span>).as(<span class="st">'loginReq'</span>);
+cy.get(<span class="st">'button[type=submit]'</span>).click();
+cy.wait(<span class="st">'@loginReq'</span>);
+cy.url().should(<span class="st">'include'</span>, <span class="st">'/dashboard'</span>);
+
+<span class="cm">// Simulate error</span>
+cy.intercept(<span class="st">'GET'</span>, <span class="st">'/api/orders'</span>, { statusCode: <span class="nm">500</span> });</pre>
+<div class="cn"><button class="cnb" onclick="nav('cy','cy-act')">&larr; Prev</button><button class="cnb p" onclick="nav('cy','cy-auth')">Next: Authentication &rarr;</button></div>
+</div>
+
+<div class="ch" id="cy-auth">
+<div class="eye cy">Cypress &bull; Chapter 06</div><div class="ch-t">Authentication</div>
+<div class="ch-s">cy.session() caches login state and reuses it. Similar to Playwright's storageState.</div>
+<pre><span class="cm">// cypress/support/commands.ts</span>
+Cypress.Commands.add(<span class="st">'login'</span>, (username, password) =&gt; {
+  cy.session([username, password], () =&gt; {
+    cy.visit(<span class="st">'/login'</span>);
+    cy.get(<span class="st">'#username'</span>).type(username);
+    cy.get(<span class="st">'#password'</span>).type(password);
+    cy.get(<span class="st">'button[type=submit]'</span>).click();
+    cy.url().should(<span class="st">'include'</span>, <span class="st">'/dashboard'</span>);
+  });
+});
+
+<span class="cm">// In tests &mdash; session is restored from cache</span>
+beforeEach(() =&gt; {
+  cy.login(<span class="st">'student'</span>, <span class="st">'Password123'</span>);
+});</pre>
+<div class="cn"><button class="cnb" onclick="nav('cy','cy-net')">&larr; Prev</button><button class="cnb p" onclick="nav('cy','cy-vs')">Next: Cypress vs Playwright &rarr;</button></div>
+</div>
+
+<div class="ch" id="cy-vs">
+<div class="eye cy">Cypress &bull; Chapter 07</div><div class="ch-t">Cypress vs Playwright</div>
+<div class="ch-s">When to choose each tool.</div>
+<div class="tw"><table><thead><tr><th>Feature</th><th>Cypress</th><th>Playwright</th></tr></thead><tbody>
+<tr><td>Safari / WebKit</td><td class="no">No</td><td class="yes">Yes</td></tr>
+<tr><td>Multi-tab testing</td><td class="no">No</td><td class="yes">Yes</td></tr>
+<tr><td>iFrame support</td><td class="no">Poor</td><td class="yes">Yes</td></tr>
+<tr><td>Parallel</td><td class="meh">Paid only</td><td class="yes">Native, free</td></tr>
+<tr><td>Languages</td><td class="meh">JS/TS only</td><td class="yes">JS, TS, Python, Java, C#</td></tr>
+<tr><td>API testing</td><td class="meh">cy.request() limited</td><td class="yes">Full request fixture</td></tr>
+<tr><td>Learning curve</td><td class="yes">Easy</td><td class="meh">Moderate</td></tr>
+<tr><td>Debugging UI</td><td class="yes">Time-travel</td><td class="yes">Trace viewer</td></tr>
+</tbody></table></div>
+<div class="sb2">Choose Cypress for frontend-focused teams, React/Vue/Angular, no Safari, easiest learning curve. Choose Playwright for cross-browser, multi-language, API testing, parallel without paying.</div>
+<div class="cn"><button class="cnb" onclick="nav('cy','cy-auth')">&larr; Prev</button><button class="cnb p" onclick="nav('cy','cy-int')">Next: Interview Q&amp;A &rarr;</button></div>
+</div>
+
+<div class="ch" id="cy-int">
+<div class="eye cy">Cypress &bull; Chapter 08</div><div class="ch-t">Cypress Interview Q&amp;A</div>
+<div class="ch-s">Most common Cypress interview questions.</div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q1</span><span class="qt">What is Cypress and how does it differ from Playwright?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"Cypress runs directly inside the browser unlike Playwright which uses external protocols. This gives great developer experience and time-travel debugging but means no Safari support, no multi-tab testing, and parallel execution needs a paid dashboard. I choose Cypress for frontend-heavy React/Angular teams where DX matters most and Safari is not required. For anything requiring cross-browser, multi-language, or full API testing I would use Playwright."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q2</span><span class="qt">What is cy.intercept() and when would you use it?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"cy.intercept() intercepts HTTP requests and lets you stub responses, simulate errors, or wait for requests to complete. I use it when the backend is not ready so I can test UI with mocked data, when testing error states like 500 responses, and when I need to assert that a specific API was called. You alias it with .as() and use cy.wait('@alias') to pause until that request completes."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q3</span><span class="qt">What are the key limitations of Cypress?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"Four key limitations: no Safari or WebKit support. No multi-tab or multi-domain testing. Parallel execution requires the paid Cypress Cloud dashboard. JavaScript and TypeScript only &mdash; no Python, Java, or C#. These are why enterprise teams often choose Playwright for new projects, though Cypress remains popular for frontend-focused teams."</div></div></div>
+<div class="cn"><button class="cnb" onclick="nav('cy','cy-vs')">&larr; Prev</button><span style="font-size:13px;color:var(--g400)">End of Cypress</span></div>
+</div>
+</div>
+
+<div class="tv" id="tv-ap">
+<div class="ch active" id="ap-intro">
+<div class="eye ap">Appium &bull; Chapter 01</div><div class="ch-t">What is Appium?</div>
+<div class="ch-s">The Selenium of mobile. Open source framework for automating native iOS and Android apps.</div>
+<p>Appium acts as a server that translates WebDriver commands into native mobile actions through XCUITest (iOS) and UIAutomator2 (Android). It is the industry standard for native mobile app testing.</p>
+<h2>Playwright vs Appium</h2>
+<div class="tw"><table><thead><tr><th>Feature</th><th>Playwright</th><th>Appium</th></tr></thead><tbody>
+<tr><td>Mobile web</td><td class="yes">Yes (emulation)</td><td class="yes">Yes (real browser)</td></tr>
+<tr><td>Native iOS app</td><td class="no">No</td><td class="yes">Yes</td></tr>
+<tr><td>Native Android app</td><td class="no">No</td><td class="yes">Yes</td></tr>
+<tr><td>Setup complexity</td><td class="yes">Simple</td><td class="no">Complex (Xcode, Android Studio)</td></tr>
+<tr><td>Test speed</td><td class="yes">Fast</td><td class="no">Slower</td></tr>
+</tbody></table></div>
+<div class="ib">Playwright for mobile web (websites on a phone). Appium for native mobile apps (.ipa and .apk files).</div>
+<div class="cn"><span></span><button class="cnb p" onclick="nav('ap','ap-setup')">Next: Setup &rarr;</button></div>
+</div>
+
+<div class="ch" id="ap-setup">
+<div class="eye ap">Appium &bull; Chapter 02</div><div class="ch-t">Setup &amp; Architecture</div>
+<div class="ch-s">Appium setup is more complex. You need platform SDKs, an Appium server, and a device.</div>
+<pre><span class="cm"># For Android: Java JDK 11+, Android Studio, AVD emulator</span>
+<span class="cm"># For iOS: Xcode (Mac only), iOS Simulator</span>
+
+<span class="cm"># Install Appium</span>
+npm install -g appium
+appium driver install uiautomator2   <span class="cm"># Android</span>
+appium driver install xcuitest        <span class="cm"># iOS (Mac only)</span>
+appium                                <span class="cm"># start the server</span></pre>
+<h2>Desired Capabilities</h2>
+<p>Capabilities tell Appium what device and app to use. This is the most important config.</p>
+<pre><span class="cm">// Android</span>
+<span class="kw">const</span> caps = {
+  platformName: <span class="st">'Android'</span>,
+  <span class="st">'appium:deviceName'</span>: <span class="st">'emulator-5554'</span>,
+  <span class="st">'appium:platformVersion'</span>: <span class="st">'13.0'</span>,
+  <span class="st">'appium:app'</span>: <span class="st">'/path/to/app.apk'</span>,
+  <span class="st">'appium:automationName'</span>: <span class="st">'UiAutomator2'</span>,
+};
+
+<span class="cm">// iOS</span>
+<span class="kw">const</span> caps = {
+  platformName: <span class="st">'iOS'</span>,
+  <span class="st">'appium:deviceName'</span>: <span class="st">'iPhone 14'</span>,
+  <span class="st">'appium:platformVersion'</span>: <span class="st">'16.0'</span>,
+  <span class="st">'appium:app'</span>: <span class="st">'/path/to/app.app'</span>,
+  <span class="st">'appium:automationName'</span>: <span class="st">'XCUITest'</span>,
+};</pre>
+<div class="cn"><button class="cnb" onclick="nav('ap','ap-intro')">&larr; Prev</button><button class="cnb p" onclick="nav('ap','ap-loc')">Next: Mobile Locators &rarr;</button></div>
+</div>
+
+<div class="ch" id="ap-loc">
+<div class="eye ap">Appium &bull; Chapter 03</div><div class="ch-t">Mobile Locators</div>
+<div class="ch-s">Mobile locators are different from web. Use accessibility IDs, XPath, class names specific to native UI.</div>
+<pre><span class="cm">// Accessibility ID (recommended &mdash; works on both iOS and Android)</span>
+<span class="kw">await</span> driver.$(<span class="st">'~LoginButton'</span>);
+
+<span class="cm">// Android: resource ID</span>
+<span class="kw">await</span> driver.$(<span class="st">'android=new UiSelector().resourceId("com.app:id/username")'</span>);
+
+<span class="cm">// iOS: predicate string</span>
+<span class="kw">await</span> driver.$(<span class="st">'-ios predicate string:label == "Login"'</span>);
+
+<span class="cm">// XPath (last resort &mdash; slow and brittle)</span>
+<span class="kw">await</span> driver.$(<span class="st">'//android.widget.EditText[@text="Username"]'</span>);</pre>
+<div class="ib">Accessibility ID is the preferred locator. It works on both platforms and is stable. Ask developers to add accessibility labels to all interactive elements.</div>
+<div class="cn"><button class="cnb" onclick="nav('ap','ap-setup')">&larr; Prev</button><button class="cnb p" onclick="nav('ap','ap-ges')">Next: Gestures &rarr;</button></div>
+</div>
+
+<div class="ch" id="ap-ges">
+<div class="eye ap">Appium &bull; Chapter 04</div><div class="ch-t">Gestures &amp; Actions</div>
+<div class="ch-s">Mobile requires gestures that do not exist in web testing &mdash; tap, swipe, scroll, long press.</div>
+<pre><span class="cm">// Tap</span>
+<span class="kw">await</span> driver.$(<span class="st">'~LoginButton'</span>).click();
+
+<span class="cm">// Type text</span>
+<span class="kw">await</span> driver.$(<span class="st">'~UsernameField'</span>).setValue(<span class="st">'student'</span>);
+
+<span class="cm">// Swipe up</span>
+<span class="kw">await</span> driver.execute(<span class="st">'mobile: swipe'</span>, { direction: <span class="st">'up'</span> });
+
+<span class="cm">// Long press</span>
+<span class="kw">const</span> el = <span class="kw">await</span> driver.$(<span class="st">'~MenuButton'</span>);
+<span class="kw">await</span> driver.execute(<span class="st">'mobile: longClickGesture'</span>, {
+  elementId: el.elementId, duration: <span class="nm">2000</span>
+});
+
+<span class="cm">// Hide keyboard</span>
+<span class="kw">await</span> driver.hideKeyboard();</pre>
+<div class="cn"><button class="cnb" onclick="nav('ap','ap-loc')">&larr; Prev</button><button class="cnb p" onclick="nav('ap','ap-and')">Next: Android Testing &rarr;</button></div>
+</div>
+
+<div class="ch" id="ap-and">
+<div class="eye ap">Appium &bull; Chapter 05</div><div class="ch-t">Android Testing</div>
+<div class="ch-s">Android automation uses UIAutomator2 driver. Needs Android Studio and emulator or real device.</div>
+<pre><span class="kw">import</span> { remote } from <span class="st">'webdriverio'</span>;
+
+<span class="kw">const</span> driver = <span class="kw">await</span> remote({
+  protocol: <span class="st">'http'</span>, hostname: <span class="st">'localhost'</span>, port: <span class="nm">4723</span>,
+  capabilities: {
+    platformName: <span class="st">'Android'</span>,
+    <span class="st">'appium:deviceName'</span>: <span class="st">'emulator-5554'</span>,
+    <span class="st">'appium:app'</span>: <span class="st">'/path/to/MyApp.apk'</span>,
+    <span class="st">'appium:automationName'</span>: <span class="st">'UiAutomator2'</span>,
+  }
+});
+
+<span class="kw">await</span> driver.$(<span class="st">'~UsernameField'</span>).setValue(<span class="st">'student'</span>);
+<span class="kw">await</span> driver.$(<span class="st">'~PasswordField'</span>).setValue(<span class="st">'Password123'</span>);
+<span class="kw">await</span> driver.$(<span class="st">'~LoginButton'</span>).click();
+
+<span class="kw">const</span> welcome = <span class="kw">await</span> driver.$(<span class="st">'~WelcomeMessage'</span>);
+<span class="kw">await</span> expect(welcome).toBeDisplayed();
+<span class="kw">await</span> driver.deleteSession();</pre>
+<div class="cn"><button class="cnb" onclick="nav('ap','ap-ges')">&larr; Prev</button><button class="cnb p" onclick="nav('ap','ap-ios')">Next: iOS Testing &rarr;</button></div>
+</div>
+
+<div class="ch" id="ap-ios">
+<div class="eye ap">Appium &bull; Chapter 06</div><div class="ch-t">iOS Testing</div>
+<div class="ch-s">iOS automation uses XCUITest driver. Requires a Mac with Xcode. Cannot be done on Windows or Linux.</div>
+<pre><span class="cm">// iOS-specific locators</span>
+<span class="kw">await</span> driver.$(<span class="st">'~Username'</span>);                    <span class="cm">// Accessibility ID</span>
+<span class="kw">await</span> driver.$(<span class="st">'-ios predicate string:type == "XCUIElementTypeButton" AND label == "Login"'</span>);
+
+<span class="cm">// Full iOS test</span>
+<span class="kw">const</span> driver = <span class="kw">await</span> remote({
+  capabilities: {
+    platformName: <span class="st">'iOS'</span>,
+    <span class="st">'appium:deviceName'</span>: <span class="st">'iPhone 14'</span>,
+    <span class="st">'appium:platformVersion'</span>: <span class="st">'16.4'</span>,
+    <span class="st">'appium:app'</span>: <span class="st">'/path/to/MyApp.app'</span>,
+    <span class="st">'appium:automationName'</span>: <span class="st">'XCUITest'</span>,
+  }
+});
+<span class="kw">await</span> driver.$(<span class="st">'~Username'</span>).setValue(<span class="st">'student'</span>);
+<span class="kw">await</span> driver.$(<span class="st">'~Password'</span>).setValue(<span class="st">'Password123'</span>);
+<span class="kw">await</span> driver.$(<span class="st">'~LoginButton'</span>).click();
+<span class="kw">await</span> driver.hideKeyboard();</pre>
+<div class="cn"><button class="cnb" onclick="nav('ap','ap-and')">&larr; Prev</button><button class="cnb p" onclick="nav('ap','ap-int')">Next: Interview Q&amp;A &rarr;</button></div>
+</div>
+
+<div class="ch" id="ap-int">
+<div class="eye ap">Appium &bull; Chapter 07</div><div class="ch-t">Appium Interview Q&amp;A</div>
+<div class="ch-s">Most common Appium interview questions for mobile automation roles.</div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q1</span><span class="qt">What is Appium and how does it differ from Playwright for mobile?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"Appium is an open source framework for automating native iOS and Android apps using the WebDriver protocol. It acts as a server translating commands into native actions through XCUITest for iOS and UIAutomator2 for Android. Playwright can only emulate mobile devices in a browser &mdash; it cannot test a real native app binary. Appium is the choice when you need to test .ipa or .apk files with real native UI elements and device gestures."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q2</span><span class="qt">What are Desired Capabilities in Appium?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"Desired Capabilities are key-value pairs that tell Appium what device, platform, and app to use for the test session. The most important are platformName (iOS or Android), deviceName, platformVersion, app (path to the binary), and automationName (XCUITest for iOS, UiAutomator2 for Android). They are passed when creating the driver session."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q3</span><span class="qt">What locator strategy do you prefer for mobile and why?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"I prefer Accessibility ID (~) because it works on both iOS and Android, making tests platform-agnostic and stable. It maps to the accessibility label on iOS and content-description on Android. XPath is a last resort because it is slow and breaks easily when UI structure changes. I work with developers to ensure all interactive elements have accessibility IDs."</div></div></div>
+<div class="cn"><button class="cnb" onclick="nav('ap','ap-ios')">&larr; Prev</button><span style="font-size:13px;color:var(--g400)">End of Appium</span></div>
+</div>
+</div>
+
+<div class="tv" id="tv-se">
+<div class="ch active" id="se-intro">
+<div class="eye se">Selenium &bull; Chapter 01</div><div class="ch-t">What is Selenium?</div>
+<div class="ch-s">The original web automation framework from 2004. Still the most widely used in enterprise. Essential to know.</div>
+<p>Selenium WebDriver communicates with browsers via the WebDriver protocol. Despite being older, it remains dominant in enterprise due to multi-language support, broad browser coverage, and enormous ecosystem.</p>
+<h2>Why Selenium is still relevant</h2>
+<div class="cg">
+<div class="cc"><div class="cc-t">Every browser + IE</div><div class="cc-b">Only tool supporting Internet Explorer for legacy enterprise.</div></div>
+<div class="cc"><div class="cc-t">Every language</div><div class="cc-b">Java, Python, C#, JavaScript, Ruby.</div></div>
+<div class="cc"><div class="cc-t">Huge ecosystem</div><div class="cc-b">TestNG, JUnit, Cucumber, Allure, Jenkins integrations.</div></div>
+<div class="cc"><div class="cc-t">Industry standard</div><div class="cc-b">Most QA job postings still mention Selenium.</div></div>
+</div>
+<div class="tw"><table><thead><tr><th>Feature</th><th>Selenium</th><th>Playwright</th></tr></thead><tbody>
+<tr><td>Auto-wait</td><td class="no">No &mdash; manual waits</td><td class="yes">Yes &mdash; built in</td></tr>
+<tr><td>Built-in runner</td><td class="no">No &mdash; needs TestNG/JUnit</td><td class="yes">Yes</td></tr>
+<tr><td>API testing</td><td class="no">No</td><td class="yes">Yes</td></tr>
+<tr><td>Network intercept</td><td class="no">Very limited</td><td class="yes">Full route()</td></tr>
+<tr><td>Trace viewer</td><td class="no">No</td><td class="yes">Yes</td></tr>
+</tbody></table></div>
+<div class="cn"><span></span><button class="cnb p" onclick="nav('se','se-setup')">Next: Setup &rarr;</button></div>
+</div>
+
+<div class="ch" id="se-setup">
+<div class="eye se">Selenium &bull; Chapter 02</div><div class="ch-t">Setup &amp; WebDriver</div>
+<div class="ch-s">Selenium requires a WebDriver binary per browser. Selenium 4 Manager handles this automatically.</div>
+<pre><span class="cm"># JavaScript</span>
+npm install selenium-webdriver</pre>
+<h2>First test (JavaScript)</h2>
+<pre><span class="kw">const</span> { Builder, By, until } = require(<span class="st">'selenium-webdriver'</span>);
+
+<span class="kw">const</span> driver = <span class="kw">await new</span> Builder().forBrowser(<span class="st">'chrome'</span>).build();
+<span class="kw">await</span> driver.get(<span class="st">'https://example.com/login'</span>);
+<span class="kw">await</span> driver.findElement(By.id(<span class="st">'username'</span>)).sendKeys(<span class="st">'student'</span>);
+<span class="kw">await</span> driver.findElement(By.id(<span class="st">'password'</span>)).sendKeys(<span class="st">'Password123'</span>);
+<span class="kw">await</span> driver.findElement(By.css(<span class="st">'button[type=submit]'</span>)).click();
+<span class="kw">await</span> driver.wait(until.urlContains(<span class="st">'dashboard'</span>), <span class="nm">10000</span>);
+<span class="kw">await</span> driver.quit();</pre>
+<div class="cn"><button class="cnb" onclick="nav('se','se-intro')">&larr; Prev</button><button class="cnb p" onclick="nav('se','se-loc')">Next: Locators &rarr;</button></div>
+</div>
+
+<div class="ch" id="se-loc">
+<div class="eye se">Selenium &bull; Chapter 03</div><div class="ch-t">Locators</div>
+<div class="ch-s">Selenium uses the By class. Similar concepts to Playwright, different syntax.</div>
+<pre>By.id(<span class="st">'username'</span>)                          <span class="cm">// fastest</span>
+By.css(<span class="st">'#username'</span>)
+By.css(<span class="st">'.btn-primary'</span>)
+By.css(<span class="st">'button[type="submit"]'</span>)
+By.xpath(<span class="st">'//button[@type="submit"]'</span>)
+By.linkText(<span class="st">'About Us'</span>)
+By.partialLinkText(<span class="st">'About'</span>)
+By.name(<span class="st">'username'</span>)
+By.className(<span class="st">'btn-primary'</span>)              <span class="cm">// fragile</span></pre>
+<div class="tw"><table><thead><tr><th>Goal</th><th>Playwright</th><th>Selenium</th></tr></thead><tbody>
+<tr><td>By ID</td><td>locator('#username')</td><td>By.id('username')</td></tr>
+<tr><td>By CSS</td><td>locator('.btn')</td><td>By.css('.btn')</td></tr>
+<tr><td>By role</td><td>getByRole('button',{name:'Submit'})</td><td>No direct equivalent</td></tr>
+<tr><td>By label</td><td>getByLabel('Email')</td><td>No direct equivalent</td></tr>
+</tbody></table></div>
+<div class="cn"><button class="cnb" onclick="nav('se','se-setup')">&larr; Prev</button><button class="cnb p" onclick="nav('se','se-wait')">Next: Waits &rarr;</button></div>
+</div>
+
+<div class="ch" id="se-wait">
+<div class="eye se">Selenium &bull; Chapter 04</div><div class="ch-t">Waits &amp; Synchronisation</div>
+<div class="ch-s">Selenium has no auto-waiting. You must add waits manually. This is the biggest source of flaky tests.</div>
+<pre><span class="cm">// 1. Implicit wait &mdash; global default</span>
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(<span class="nm">10</span>));
+
+<span class="cm">// 2. Explicit wait &mdash; recommended</span>
+<span class="kw">const</span> wait = <span class="kw">new</span> WebDriverWait(driver, Duration.ofSeconds(<span class="nm">10</span>));
+wait.until(ExpectedConditions.elementToBeClickable(By.id(<span class="st">'submit'</span>))).click();
+
+<span class="cm">// Common ExpectedConditions</span>
+ExpectedConditions.elementToBeClickable(locator)
+ExpectedConditions.visibilityOfElementLocated(locator)
+ExpectedConditions.invisibilityOfElementLocated(locator)
+ExpectedConditions.textToBePresentInElement(el, <span class="st">'text'</span>)
+ExpectedConditions.urlContains(<span class="st">'/dashboard'</span>)</pre>
+<div class="wb">Never use Thread.sleep() in Selenium tests. Always use explicit waits. Playwright eliminates all of this with built-in auto-waiting.</div>
+<div class="cn"><button class="cnb" onclick="nav('se','se-loc')">&larr; Prev</button><button class="cnb p" onclick="nav('se','se-grid')">Next: Selenium Grid &rarr;</button></div>
+</div>
+
+<div class="ch" id="se-grid">
+<div class="eye se">Selenium &bull; Chapter 05</div><div class="ch-t">Selenium Grid</div>
+<div class="ch-s">Distributes test execution across multiple machines and browsers. What Playwright does natively for free.</div>
+<pre><span class="cm"># Start Grid (standalone mode)</span>
+java -jar selenium-server-4.x.jar standalone
+
+<span class="cm"># Or hub + node separately</span>
+java -jar selenium-server-4.x.jar hub
+java -jar selenium-server-4.x.jar node --hub http://localhost:4444
+
+<span class="cm">// Point tests at Grid</span>
+<span class="kw">const</span> driver = <span class="kw">await new</span> Builder()
+  .usingServer(<span class="st">'http://localhost:4444'</span>)
+  .forBrowser(<span class="st">'chrome'</span>)
+  .build();</pre>
+<div class="ib">Playwright runs parallel tests natively with zero configuration. Selenium needs Grid for the same capability &mdash; one of Playwright's biggest advantages.</div>
+<div class="cn"><button class="cnb" onclick="nav('se','se-wait')">&larr; Prev</button><button class="cnb p" onclick="nav('se','se-pom')">Next: POM &rarr;</button></div>
+</div>
+
+<div class="ch" id="se-pom">
+<div class="eye se">Selenium &bull; Chapter 06</div><div class="ch-t">Page Object Model in Selenium</div>
+<div class="ch-s">POM is used in Selenium exactly as in Playwright. The pattern is identical, only the syntax differs.</div>
+<pre><span class="cm">// Java POM</span>
+<span class="kw">public class</span> LoginPage {
+  <span class="kw">private</span> WebDriver driver;
+  <span class="kw">private</span> By usernameField = By.id(<span class="st">"username"</span>);
+  <span class="kw">private</span> By passwordField = By.id(<span class="st">"password"</span>);
+  <span class="kw">private</span> By submitButton  = By.css(<span class="st">"button[type=submit]"</span>);
+
+  <span class="kw">public</span> LoginPage(WebDriver driver) { this.driver = driver; }
+
+  <span class="kw">public void</span> login(String username, String password) {
+    driver.findElement(usernameField).sendKeys(username);
+    driver.findElement(passwordField).sendKeys(password);
+    driver.findElement(submitButton).click();
+  }
+}</pre>
+<div class="sb2">The POM pattern is identical between tools. Locators in the page class, assertions in the test. Only the API syntax differs.</div>
+<div class="cn"><button class="cnb" onclick="nav('se','se-grid')">&larr; Prev</button><button class="cnb p" onclick="nav('se','se-int')">Next: Interview Q&amp;A &rarr;</button></div>
+</div>
+
+<div class="ch" id="se-int">
+<div class="eye se">Selenium &bull; Chapter 07</div><div class="ch-t">Selenium Interview Q&amp;A</div>
+<div class="ch-s">Most common Selenium questions. Important even if you primarily use Playwright.</div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q1</span><span class="qt">What are the three types of waits in Selenium?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"Implicit wait sets a global timeout for all findElement calls. Explicit wait uses WebDriverWait with ExpectedConditions to wait for a specific condition on a specific element &mdash; this is recommended. Fluent wait is like explicit wait but lets you configure the polling interval and which exceptions to ignore. Thread.sleep should never be used. Playwright eliminates all of this with built-in auto-waiting."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q2</span><span class="qt">What is Selenium Grid and when would you use it?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"Selenium Grid distributes test execution across multiple machines and browsers in parallel. A hub coordinates and nodes register with specific browser and OS combinations. I would use it in a Selenium project needing cross-browser testing at scale. In Playwright this is not needed because parallel execution is native and built in."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q3</span><span class="qt">Why would you still choose Selenium over Playwright in 2025?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"Three scenarios: needing Internet Explorer support for legacy enterprise systems, a Java-based team with an existing Selenium framework that would be costly to migrate, or a large enterprise where Selenium is the mandated standard. For any new project I would choose Playwright."</div></div></div>
+<div class="qa" onclick="togQ(this)"><div class="qa-q"><span class="qb">Q4</span><span class="qt">What is StaleElementReferenceException and how do you fix it?</span><span class="cv">&#9660;</span></div>
+<div class="qa-body"><div class="al">Ideal answer</div><div class="at">"It happens when you hold a reference to a DOM element that has been removed and re-rendered since you found it. The fix is to re-find the element each time instead of caching it. Playwright avoids this completely because its locators are lazy &mdash; they re-query the DOM every time an action is performed."</div></div></div>
+<div class="cn"><button class="cnb" onclick="nav('se','se-pom')">&larr; Prev</button><span style="font-size:13px;color:var(--g400)">End of Selenium</span></div>
+</div>
+</div>
+</div></div>
+<script>
+var cur='pw';
+var curCh={pw:'pw-intro',cy:'cy-intro',ap:'ap-intro',se:'se-intro'};
+var sbData={
+  pw:[
+    {l:'Getting started',i:[['pw-intro','01','What is Playwright'],['pw-setup','02','Installation & setup'],['pw-config','03','Configuration']]},
+    {l:'Core skills',i:[['pw-loc','04','Locators'],['pw-act','05','Actions & assertions'],['pw-wait','06','Auto-waiting'],['pw-pom','07','Page Object Model'],['pw-fix','08','Fixtures & hooks']]},
+    {l:'Advanced',i:[['pw-auth','09','Authentication'],['pw-net','10','Network mocking'],['pw-api','11','API testing'],['pw-mob','12','Mobile emulation'],['pw-ci','13','CI/CD & GitHub Actions'],['pw-dbg','14','Debugging & tracing']]},
+    {l:'Reference',i:[['pw-cheat','15','Cheat sheet'],['pw-int','16','Interview Q&A']]}
+  ],
+  cy:[
+    {l:'Getting started',i:[['cy-intro','01','What is Cypress'],['cy-setup','02','Installation & setup']]},
+    {l:'Core skills',i:[['cy-loc','03','Locators & selectors'],['cy-act','04','Actions & assertions'],['cy-net','05','Network & intercept'],['cy-auth','06','Authentication']]},
+    {l:'Reference',i:[['cy-vs','07','Cypress vs Playwright'],['cy-int','08','Interview Q&A']]}
+  ],
+  ap:[
+    {l:'Getting started',i:[['ap-intro','01','What is Appium'],['ap-setup','02','Setup & architecture']]},
+    {l:'Core skills',i:[['ap-loc','03','Mobile locators'],['ap-ges','04','Gestures & actions'],['ap-and','05','Android testing'],['ap-ios','06','iOS testing']]},
+    {l:'Reference',i:[['ap-int','07','Interview Q&A']]}
+  ],
+  se:[
+    {l:'Getting started',i:[['se-intro','01','What is Selenium'],['se-setup','02','Setup & WebDriver']]},
+    {l:'Core skills',i:[['se-loc','03','Locators'],['se-wait','04','Waits & synchronisation'],['se-grid','05','Selenium Grid'],['se-pom','06','Page Object Model']]},
+    {l:'Reference',i:[['se-int','07','Interview Q&A']]}
+  ]
+};
+
+function buildSB(tool){
+  var sb=document.getElementById('sidebar');
+  sb.innerHTML='';
+  sbData[tool].forEach(function(sec){
+    var lbl=document.createElement('span');
+    lbl.className='sbl';lbl.textContent=sec.l;sb.appendChild(lbl);
+    sec.i.forEach(function(item){
+      var btn=document.createElement('button');
+      btn.className='sbtn';
+      btn.innerHTML='<span class="sbn">'+item[1]+'</span>'+item[2];
+      var chId=item[0],t=tool;
+      btn.onclick=function(){showCh(t,chId,btn);};
+      if(item[0]===curCh[tool]) btn.classList.add('a'+tool);
+      sb.appendChild(btn);
+    });
+  });
+}
+
+function sw(tool,btn){
+  cur=tool;
+  document.querySelectorAll('.tv').forEach(function(v){v.classList.remove('active');});
+  document.getElementById('tv-'+tool).classList.add('active');
+  document.querySelectorAll('.tbtn').forEach(function(b){b.className='tbtn';});
+  btn.classList.add('a'+tool);
+  buildSB(tool);
+}
+
+function showCh(tool,chId,btn){
+  curCh[tool]=chId;
+  document.getElementById('tv-'+tool).querySelectorAll('.ch').forEach(function(c){c.classList.remove('active');});
+  document.getElementById(chId).classList.add('active');
+  document.querySelectorAll('#sidebar .sbtn').forEach(function(b){b.className='sbtn';});
+  if(btn) btn.classList.add('a'+tool);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function nav(tool,chId){
+  showCh(tool,chId,null);
+  buildSB(tool);
+}
+
+function togQ(card){
+  var open=card.classList.contains('open');
+  card.closest('.ch').querySelectorAll('.qa.open').forEach(function(c){c.classList.remove('open');});
+  if(!open) card.classList.add('open');
+}
+
+document.addEventListener('DOMContentLoaded',function(){buildSB('pw');});
+</script>
+</body></html>

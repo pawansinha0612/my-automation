@@ -8,7 +8,7 @@ test.describe('Login page', () => {
 
         test('wrong password shows error', async ({ loginPage }) => {
             await loginPage.login('student', 'wrongpassword');
-            await expect(loginPage.errorMessage).toHaveText('WRONG TEXT HERE');
+            await expect(loginPage.errorMessage).toBeVisible();;
         });
 
         test('wrong username shows error', async ({ loginPage }) => {

@@ -1,6 +1,52 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="24.843468">
-<testsuite name="login.spec.ts" timestamp="2026-05-30T10:28:45.616Z" hostname="ios" tests="1" failures="0" skipped="0" time="21.458" errors="0">
-<testcase name="Login page › invalid credentials › wrong password shows error" classname="login.spec.ts" time="21.458">
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="12.790096">
+<testsuite name="login.spec.ts" timestamp="2026-05-30T12:01:28.005Z" hostname="ios" tests="1" failures="1" skipped="0" time="9.127" errors="0">
+<testcase name="Login page › invalid credentials › wrong password shows error" classname="login.spec.ts" time="9.127">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/login-Login-page-invalid-c-5d3e4--wrong-password-shows-error-ios/test-failed-1.png]]
+
+[[ATTACHMENT|test-results/login-Login-page-invalid-c-5d3e4--wrong-password-shows-error-ios/video.webm]]
+
+[[ATTACHMENT|test-results/login-Login-page-invalid-c-5d3e4--wrong-password-shows-error-ios/error-context.md]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [ios] › login.spec.ts:9:13 › Login page › invalid credentials › wrong password shows error ───────
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('#error')
+    Expected: "WRONG TEXT HERE"
+    Received: "Your password is invalid!"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('#error')
+        14 × locator resolved to <div id="error" class="show">Your password is invalid!</div>
+           - unexpected value "Your password is invalid!"
+
+
+       9 |         test('wrong password shows error', async ({ loginPage }) => {
+      10 |             await loginPage.login('student', 'wrongpassword');
+    > 11 |             await expect(loginPage.errorMessage).toHaveText('WRONG TEXT HERE');
+         |                                                  ^
+      12 |         });
+      13 |
+      14 |         test('wrong username shows error', async ({ loginPage }) => {
+        at /Users/sinhap/Documents/Personal/untitled/my-automation/tests/login.spec.ts:11:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/login-Login-page-invalid-c-5d3e4--wrong-password-shows-error-ios/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/login-Login-page-invalid-c-5d3e4--wrong-password-shows-error-ios/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/login-Login-page-invalid-c-5d3e4--wrong-password-shows-error-ios/error-context.md
+]]>
+</failure>
 </testcase>
 </testsuite>
 </testsuites>
