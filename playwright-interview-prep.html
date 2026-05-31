@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playwright Interview Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff;--gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;
+  --gray-300:#d1d5db;--gray-400:#9ca3af;--gray-500:#6b7280;--gray-700:#374151;--gray-900:#111827;
+  --blue-50:#eff6ff;--blue-100:#dbeafe;--blue-500:#3b82f6;--blue-600:#2563eb;--blue-700:#1d4ed8;
+  --green-50:#f0fdf4;--green-100:#dcfce7;--green-600:#16a34a;--green-700:#15803d;
+  --amber-50:#fffbeb;--amber-100:#fef3c7;--amber-600:#d97706;--amber-700:#b45309;
+  --red-50:#fef2f2;--red-100:#fee2e2;--red-600:#dc2626;
+  --sans:'Inter',-apple-system,sans-serif;--mono:'JetBrains Mono',monospace;
+}
+body{font-family:var(--sans);background:var(--gray-50);color:var(--gray-900);font-size:14px;line-height:1.6;min-height:100vh}
+.header{background:var(--white);border-bottom:1px solid var(--gray-200);padding:2rem 2rem 1.5rem}
+.header-inner{max-width:900px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-600);margin-bottom:.4rem}
+h1{font-size:1.75rem;font-weight:600;color:var(--gray-900);margin-bottom:.35rem}
+.header p{color:var(--gray-500);font-size:14px;margin-bottom:1.2rem}
+.hstats{display:flex;gap:2rem}.hstat-n{font-size:1.2rem;font-weight:600;color:var(--gray-900)}.hstat-l{font-size:12px;color:var(--gray-400)}
+nav{background:var(--white);border-bottom:1px solid var(--gray-200);position:sticky;top:0;z-index:50}
+.nav-inner{max-width:900px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nbtn{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--gray-500);background:none;border:none;border-bottom:2px solid transparent;padding:.85rem 1.1rem;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}
+.nbtn:hover{color:var(--gray-700)}.nbtn.active{color:var(--blue-600);border-bottom-color:var(--blue-600)}
+main{max-width:900px;margin:0 auto;padding:2rem 1.5rem 5rem}
+.section{display:none}.section.active{display:block}
+.sec-h{font-size:16px;font-weight:600;color:var(--gray-900);margin-bottom:.25rem}
+.sec-s{font-size:13px;color:var(--gray-500);margin-bottom:1.5rem}
+.srch-wrap{position:relative;margin-bottom:1.25rem}
+.srch-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:15px;pointer-events:none}
+.srch-input{width:100%;font-family:var(--sans);font-size:13px;color:var(--gray-900);background:var(--white);border:1px solid var(--gray-200);border-radius:8px;padding:.6rem .75rem .6rem 2.25rem;outline:none;transition:border-color .15s}
+.srch-input:focus{border-color:var(--blue-500)}.srch-input::placeholder{color:var(--gray-400)}
+.qa-card{background:var(--white);border:1px solid var(--gray-200);border-radius:8px;margin-bottom:8px;overflow:hidden;transition:border-color .15s,box-shadow .15s}
+.qa-card:hover{border-color:var(--gray-300)}.qa-card.open{border-color:var(--blue-500);box-shadow:0 0 0 3px rgba(59,130,246,.08)}
+.qa-q{display:flex;align-items:flex-start;gap:10px;padding:.9rem 1rem;cursor:pointer;user-select:none}
+.qbadge{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--blue-600);background:var(--blue-50);border:1px solid var(--blue-100);border-radius:4px;padding:2px 6px;flex-shrink:0;margin-top:1px}
+.qtext{font-size:14px;font-weight:500;color:var(--gray-900);flex:1;line-height:1.5}
+.chevron{color:var(--gray-400);font-size:16px;flex-shrink:0;transition:transform .2s;margin-top:2px}
+.qa-card.open .chevron{transform:rotate(180deg);color:var(--blue-500)}
+.qa-body{display:none;padding:0 1rem 1rem;border-top:1px solid var(--gray-100);padding-top:1rem}
+.qa-card.open .qa-body{display:block}
+.score{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:3px 9px;border-radius:20px;margin-bottom:.9rem}
+.sc-hi{background:var(--green-50);color:var(--green-700);border:1px solid var(--green-100)}
+.sc-mi{background:var(--amber-50);color:var(--amber-700);border:1px solid var(--amber-100)}
+.tags{margin-bottom:.75rem}
+.tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;margin-right:5px}
+.tc{background:var(--green-50);color:var(--green-700);border:1px solid var(--green-100)}
+.ts{background:var(--amber-50);color:var(--amber-700);border:1px solid var(--amber-100)}
+.tk{background:var(--blue-50);color:var(--blue-700);border:1px solid var(--blue-100)}
+.tg{background:var(--gray-100);color:var(--gray-700);border:1px solid var(--gray-200)}
+.must{background:var(--gray-50);border:1px solid var(--gray-200);border-left:3px solid var(--blue-500);border-radius:0 6px 6px 0;padding:.85rem 1rem;margin-bottom:.9rem}
+.must-t{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--blue-600);margin-bottom:.5rem}
+.mi{display:flex;gap:7px;font-size:13px;color:var(--gray-700);margin-bottom:3px;line-height:1.5}
+.mi::before{content:'—';color:var(--gray-400);flex-shrink:0}
+.al{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:.4rem}
+.at{font-size:13px;color:var(--gray-700);line-height:1.75;margin-bottom:.9rem}
+.wbox{background:var(--amber-50);border:1px solid var(--amber-100);border-radius:6px;padding:.7rem .9rem;font-size:12px;color:var(--amber-700);line-height:1.6;margin-bottom:.9rem}
+.ibox{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:6px;padding:.8rem 1rem;font-size:13px;color:var(--blue-700);line-height:1.65;margin-bottom:1.25rem}
+pre{background:var(--gray-900);color:#e5e7eb;font-family:var(--mono);font-size:12px;line-height:1.75;padding:.9rem 1rem;border-radius:6px;overflow-x:auto;margin-bottom:.9rem}
+pre .cm{color:#6b7280}pre .kw{color:#a78bfa}pre .fn{color:#93c5fd}pre .st{color:#86efac}pre .nm{color:#fcd34d}pre .ok{color:#4ade80}pre .bad{color:#f87171}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-bottom:1.5rem}
+.cc{background:var(--white);border:1px solid var(--gray-200);border-radius:8px;padding:1rem}
+.ct{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-500);margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+.cr{font-family:var(--mono);font-size:12px;color:var(--gray-700);padding:4px 0;border-bottom:1px solid var(--gray-100);line-height:1.6}
+.cr:last-child{border-bottom:none}.cr .hl{color:var(--blue-600)}.cr .ok{color:var(--green-600)}.cr .warn{color:var(--amber-600)}
+.tw{overflow-x:auto;margin-bottom:1.5rem}
+table{width:100%;border-collapse:collapse;font-size:13px;background:var(--white);border-radius:8px;overflow:hidden;border:1px solid var(--gray-200)}
+th{background:var(--gray-50);font-size:12px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em;padding:10px 12px;text-align:left;border-bottom:1px solid var(--gray-200)}
+th.cpw{color:var(--blue-600)}
+td{padding:9px 12px;color:var(--gray-700);border-bottom:1px solid var(--gray-100);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--gray-50)}
+.yes{color:var(--green-600);font-weight:500}.no{color:var(--red-600)}.meh{color:var(--amber-600)}
+.ssumm{background:var(--white);border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin-bottom:1.5rem}
+.sshdr{background:var(--gray-50);border-bottom:1px solid var(--gray-200);padding:.75rem 1rem;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500)}
+.srow{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border-bottom:1px solid var(--gray-100);font-size:13px}
+.srow:last-child{border-bottom:none}.sq{color:var(--gray-700);flex:1}
+.bw{width:90px;height:5px;background:var(--gray-100);border-radius:3px;overflow:hidden}
+.bar{height:100%;border-radius:3px}.bg{background:var(--green-600)}.ba{background:var(--amber-600)}
+.sn{font-family:var(--mono);font-size:12px;font-weight:500;width:36px;text-align:right}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px;margin-bottom:1.5rem}
+.pi{background:var(--white);border:1px solid var(--gray-200);border-radius:6px;padding:.65rem .85rem;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray-700)}
+.pck{width:18px;height:18px;border-radius:50%;background:var(--green-50);border:1.5px solid var(--green-600);display:flex;align-items:center;justify-content:center;color:var(--green-600);font-size:10px;flex-shrink:0}
+.conc-card{background:var(--white);border:1px solid var(--gray-200);border-radius:8px;margin-bottom:8px;overflow:hidden;transition:border-color .15s}
+.conc-card:hover{border-color:var(--gray-300)}.conc-card.open{border-color:var(--blue-500)}
+.conc-q{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;cursor:pointer;user-select:none;font-size:14px;font-weight:500;color:var(--gray-900)}
+.conc-body{display:none;padding:0 1rem 1rem;border-top:1px solid var(--gray-100);padding-top:1rem}
+.conc-card.open .conc-body{display:block}.conc-card.open .chevron{transform:rotate(180deg);color:var(--blue-500)}
+@media(max-width:640px){.header{padding:1.5rem 1rem 1.25rem}main{padding:1.5rem 1rem 4rem}.hstats{gap:1.25rem}.cg{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">Automation Engineer &middot; Playwright + TypeScript</div>
+    <h1>Interview Preparation Guide</h1>
+    <p>10 real interview questions with ideal answers, cheat sheets, and key concepts &mdash; built from your training session.</p>
+    <div class="hstats">
+      <div><div class="hstat-n">10</div><div class="hstat-l">Q&amp;A pairs</div></div>
+      <div><div class="hstat-n">11</div><div class="hstat-l">Topics covered</div></div>
+      <div><div class="hstat-n">3</div><div class="hstat-l">Areas to strengthen</div></div>
+    </div>
+  </div>
+</div>
+<nav><div class="nav-inner">
+  <button class="nbtn active" onclick="show('qa',this)">Interview Q&amp;A</button>
+  <button class="nbtn" onclick="show('cheat',this)">Cheat Sheet</button>
+  <button class="nbtn" onclick="show('concepts',this)">Key Concepts</button>
+  <button class="nbtn" onclick="show('tools',this)">Tools Comparison</button>
+  <button class="nbtn" onclick="show('progress',this)">My Progress</button>
+</div></nav>
+<main>
+
+<!-- QA -->
+<div class="section active" id="qa">
+  <div class="sec-h">Interview Questions &amp; Answers</div>
+  <div class="sec-s">Click any question to see the ideal answer, your score, and what to improve.</div>
+  <div class="srch-wrap">
+    <span class="srch-icon">&#128269;</span>
+    <input class="srch-input" type="text" placeholder="Search questions&hellip;" oninput="filterQA(this.value)">
+  </div>
+  <div id="qa-list">
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q1</span><span class="qtext">Tell me about yourself and your experience with test automation.</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag tc">Common</span><span class="tag tg">Intro</span></div>
+      <span class="score sc-hi">Your score: 8/10</span>
+      <div class="must"><div class="must-t">Must cover</div>
+        <div class="mi">Years of experience + specific tools &mdash; Playwright, Selenium, Jenkins, GitLab</div>
+        <div class="mi">Domain or industry &mdash; banking, retail, healthcare adds credibility</div>
+        <div class="mi">A number-backed achievement &mdash; &ldquo;reduced regression time by 60%&rdquo;</div>
+        <div class="mi">Recent focus &mdash; POM, storageState, CI/CD, API testing</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;I have over 10 years in software testing, specialising in test automation and API testing. I&rsquo;ve built automation frameworks from scratch using Selenium and Playwright with TypeScript, integrated them into CI/CD pipelines using Jenkins and GitLab, and worked in Agile teams across retail and finance. One thing I&rsquo;m proud of is reducing our regression suite execution time by 60% by migrating from Selenium to Playwright with parallel execution. Recently I&rsquo;ve been deepening my Playwright expertise &mdash; POM, storageState, network mocking, API testing, and GitHub Actions.&rdquo;</div>
+      <div class="wbox">Avoid listing tools without context. Add a real number or business impact &mdash; interviewers remember specifics.</div>
+    </div>
+  </div>
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q2</span><span class="qtext">What is Playwright and why would you choose it over Selenium?</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag tc">Common</span><span class="tag tg">Concept</span></div>
+      <span class="score sc-hi">Your score: 7/10</span>
+      <div class="must"><div class="must-t">Must cover</div>
+        <div class="mi">OSS by Microsoft &mdash; supports JS, TS, Python, Java, C# (not just JS/TS)</div>
+        <div class="mi">Auto-waiting &mdash; checks 5 actionability conditions before every action</div>
+        <div class="mi">Built-in test runner, assertions, reporters, trace viewer &mdash; Selenium needs separate tools</div>
+        <div class="mi">Chromium, Firefox, WebKit &mdash; Safari coverage without a Mac</div>
+        <div class="mi">Parallel execution native &mdash; Selenium needs Grid which is complex</div>
+        <div class="mi">Selenium supports many languages &mdash; it was written in Java, not Java-only</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;Playwright is an open source framework by Microsoft supporting TypeScript, JavaScript, Python, Java, and C#. The biggest advantage over Selenium is auto-waiting &mdash; Playwright automatically checks that elements are ready before acting, eliminating most flakiness. Selenium has no auto-wait so you add waits manually. Playwright comes with everything built in &mdash; test runner, assertions, reporters, trace viewer &mdash; whereas Selenium needs separate tools. For browsers it supports Chromium, Firefox, and WebKit giving Safari coverage without a Mac. Parallel execution is native &mdash; Selenium needs Grid which is complex to set up.&rdquo;</div>
+      <div class="wbox">Common mistake: saying &ldquo;Selenium is Java-based.&rdquo; Correct: &ldquo;Selenium was originally written in Java but supports many languages including Python, C#, and JavaScript.&rdquo;</div>
+    </div>
+  </div>
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q3</span><span class="qtext">What is the Page Object Model and why do we use it?</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag tc">Common</span><span class="tag ts">Senior</span></div>
+      <span class="score sc-hi">Your score: 8/10</span>
+      <div class="must"><div class="must-t">Must cover</div>
+        <div class="mi">Each page = one class with all locators and actions for that page</div>
+        <div class="mi">Separates HOW you interact with a page from WHAT you test</div>
+        <div class="mi">UI change = fix one file, not 50 test files</div>
+        <div class="mi">Reusability &mdash; one LoginPage used by many test files</div>
+        <div class="mi">BasePage class for shared methods &mdash; shows senior knowledge</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;POM is a design pattern where each page of the app has its own class holding all locators and actions &mdash; that&rsquo;s the HOW. What you want to verify lives in the test file &mdash; that&rsquo;s the WHAT. The biggest benefit is maintainability: if a button label changes, I fix it in one page class, not 50 test files. Page classes are also reusable &mdash; my LoginPage is used by login tests, checkout tests, and any test needing authentication. I also use a BasePage for shared methods like waitForPageLoad.&rdquo;</div>
+      <pre><span class="cm">// Page class &mdash; HOW to interact</span>
+<span class="kw">class</span> LoginPage {
+  constructor(page) {
+    <span class="kw">this</span>.submitBtn = page.getByRole(<span class="st">'button'</span>, { name: <span class="st">'Submit'</span> });
+  }
+  <span class="kw">async</span> login(user, pass) { <span class="cm">/* fill and click */</span> }
+}
+<span class="cm">// Test file &mdash; WHAT to verify</span>
+test(<span class="st">'login fails'</span>, <span class="kw">async</span> ({ page }) => {
+  <span class="kw">const</span> loginPage = <span class="kw">new</span> LoginPage(page);
+  <span class="kw">await</span> loginPage.login(<span class="st">'user'</span>, <span class="st">'wrong'</span>);
+  <span class="kw">await</span> expect(loginPage.errorMessage).toBeVisible();
+});</pre>
+    </div>
+  </div>
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q4</span><span class="qtext">What is the difference between locator() and getByRole()? When do you use each?</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag tk">Code</span><span class="tag tc">Common</span></div>
+      <span class="score sc-hi">Your score: 8/10</span>
+      <div class="must"><div class="must-t">Must cover</div>
+        <div class="mi">getByRole &mdash; semantic HTML elements with ARIA roles (button, link, heading, checkbox)</div>
+        <div class="mi">locator() &mdash; div, span, p &mdash; elements with no meaningful role</div>
+        <div class="mi">getByRole is more stable &mdash; roles don&rsquo;t change with CSS redesigns</div>
+        <div class="mi">locator(&rsquo;.class&rsquo;) is most fragile &mdash; class names change with styling</div>
+        <div class="mi">Priority: getByRole &rarr; getByLabel &rarr; getByText &rarr; getByTestId &rarr; locator(&rsquo;#id&rsquo;) &rarr; locator(&rsquo;.class&rsquo;)</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;Both find elements on the page. getByRole targets elements by their ARIA role &mdash; button, link, heading, checkbox. These are preferred because roles don&rsquo;t change when a developer restyles the page. locator() is for elements without a meaningful role &mdash; divs, paragraphs, spans &mdash; using CSS selectors. The priority order is getByRole first, getByLabel for inputs, getByText for paragraphs, getByTestId if data-testid exists, locator(&rsquo;#id&rsquo;) for unique IDs, and locator(&rsquo;.class&rsquo;) as last resort.&rdquo;</div>
+      <pre><span class="ok">// Priority &mdash; top to bottom</span>
+page.getByRole(<span class="st">'button'</span>, { name: <span class="st">'Submit'</span> })    <span class="cm">// best</span>
+page.getByLabel(<span class="st">'Email Address'</span>)                <span class="cm">// inputs with label</span>
+page.getByPlaceholder(<span class="st">'Enter email'</span>)             <span class="cm">// no label</span>
+page.getByText(<span class="st">'Congratulations'</span>)               <span class="cm">// paragraphs</span>
+page.getByTestId(<span class="st">'submit-btn'</span>)                  <span class="cm">// data-testid</span>
+page.locator(<span class="st">'#error'</span>)                           <span class="cm">// unique ID</span>
+<span class="bad">page.locator('.btn-primary')                    // fragile</span></pre>
+    </div>
+  </div>
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q5</span><span class="qtext">What is auto-waiting in Playwright and how does it prevent flaky tests?</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag tc">Common</span><span class="tag ts">Senior</span></div>
+      <span class="score sc-mi">Your score: 6/10 &mdash; strengthen this</span>
+      <div class="must"><div class="must-t">The 5 actionability checks &mdash; memorise these</div>
+        <div class="mi">Attached to DOM &mdash; element exists in the page</div>
+        <div class="mi">Visible &mdash; not hidden by display:none or zero opacity</div>
+        <div class="mi">Stable &mdash; not animating, position unchanged between frames</div>
+        <div class="mi">Receives pointer events &mdash; nothing overlapping it</div>
+        <div class="mi">Enabled &mdash; not disabled on input or button</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;Auto-waiting is Playwright&rsquo;s built-in mechanism that checks five conditions before executing any action: attached to DOM, visible, stable, enabled, and receives pointer events. It retries every 16ms until all pass or the 30-second timeout hits. This replaces all the manual WebDriverWait boilerplate from Selenium. Web-first assertions like expect(locator).toBeVisible() also auto-retry, so you never get false failures because the DOM hadn&rsquo;t updated yet.&rdquo;</div>
+      <pre><span class="cm">// Selenium &mdash; manual, verbose</span>
+<span class="kw">new</span> WebDriverWait(driver, Duration.ofSeconds(<span class="nm">10</span>))
+  .until(ExpectedConditions.elementToBeClickable(By.id(<span class="st">'btn'</span>)));
+<span class="cm">// Playwright &mdash; zero boilerplate</span>
+<span class="kw">await</span> page.click(<span class="st">'#btn'</span>); <span class="cm">// checks all 5 automatically</span>
+<span class="cm">// Web-first assertions also auto-retry</span>
+<span class="kw">await</span> expect(page.locator(<span class="st">'.status'</span>)).toHaveText(<span class="st">'Saved'</span>);</pre>
+    </div>
+  </div>
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q6</span><span class="qtext">How do you handle authentication in your Playwright test suite?</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag ts">Senior</span><span class="tag tk">Code</span></div>
+      <span class="score sc-hi">Your score: 7/10</span>
+      <div class="must"><div class="must-t">Must cover</div>
+        <div class="mi">global.setup.ts logs in once per role, saves session to auth.json</div>
+        <div class="mi">page.context().storageState({ path: &rsquo;auth.json&rsquo; }) &mdash; the actual API call</div>
+        <div class="mi">playwright.config.ts: storageState: &rsquo;auth.json&rsquo; &mdash; auto-loads for every test</div>
+        <div class="mi">Multiple roles = multiple files (admin-auth.json, student-auth.json)</div>
+        <div class="mi">Login tests: test.use({ storageState: { cookies:[], origins:[] } })</div>
+        <div class="mi">auth.json in .gitignore &mdash; never commit session tokens</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;I use storageState. In global.setup.ts which runs once before all tests, I log in with each user role and save the session using page.context().storageState({ path: &rsquo;auth.json&rsquo; }). In playwright.config.ts I set storageState: &rsquo;auth.json&rsquo; so every test starts already authenticated. For 50 tests this saves around 150 seconds. Login tests override with test.use({ storageState: { cookies:[], origins:[] } }) for a fresh session. Auth files go in .gitignore.&rdquo;</div>
+      <pre><span class="cm">// global.setup.ts &mdash; runs once</span>
+<span class="kw">await</span> loginPage.login(<span class="st">'admin'</span>, <span class="st">'password'</span>);
+<span class="kw">await</span> page.context().storageState({ path: <span class="st">'auth.json'</span> });
+<span class="cm">// playwright.config.ts</span>
+use: { storageState: <span class="st">'auth.json'</span> }
+<span class="cm">// login tests &mdash; fresh unauthenticated session</span>
+test.use({ storageState: { cookies: [], origins: [] } });</pre>
+    </div>
+  </div>
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q7</span><span class="qtext">What is network mocking and when would you use it?</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag ts">Senior</span><span class="tag tk">Code</span></div>
+      <span class="score sc-hi">Your score: 8.5/10</span>
+      <div class="must"><div class="must-t">Must cover</div>
+        <div class="mi">page.route() &mdash; the Playwright method for interception</div>
+        <div class="mi">Backend not ready &mdash; test UI independently of the API</div>
+        <div class="mi">Test edge cases &mdash; 500 error, empty response, timeout</div>
+        <div class="mi">Tests become deterministic &mdash; same fake data every run</div>
+        <div class="mi">Block third party scripts &mdash; analytics, tracking = faster tests</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;Network mocking intercepts HTTP requests and returns controlled responses without hitting the real backend. In Playwright I use page.route(). Main use cases: when the backend isn&rsquo;t ready and we want to start UI testing early, testing edge cases like 500 errors or empty responses, and making tests independent of backend stability. I also block third party calls like analytics which speeds up execution. The key benefit is tests become deterministic &mdash; same fake data every run.&rdquo;</div>
+      <pre><span class="cm">// Return fake data</span>
+<span class="kw">await</span> page.route(<span class="st">'**/api/orders'</span>, route => route.fulfill({
+  status: <span class="nm">200</span>, body: JSON.stringify([{ id: <span class="st">'ORD-001'</span> }])
+}));
+<span class="cm">// Simulate server error</span>
+<span class="kw">await</span> page.route(<span class="st">'**/api/orders'</span>, route => route.fulfill({ status: <span class="nm">500</span> }));
+<span class="cm">// Block analytics</span>
+<span class="kw">await</span> page.route(<span class="st">'**analytics**'</span>, route => route.abort());</pre>
+    </div>
+  </div>
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q8</span><span class="qtext">How do you integrate Playwright tests into a CI/CD pipeline?</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag tc">Common</span><span class="tag ts">Senior</span></div>
+      <span class="score sc-hi">Your score: 8/10</span>
+      <div class="must"><div class="must-t">Must cover</div>
+        <div class="mi">GitHub Actions &mdash; .github/workflows/playwright.yml</div>
+        <div class="mi">Steps: checkout &rarr; install Node &rarr; npm ci &rarr; install browsers &rarr; run tests</div>
+        <div class="mi">npx playwright install --with-deps &mdash; installs OS-level browser dependencies</div>
+        <div class="mi">Secrets for credentials &mdash; never hardcode in yaml</div>
+        <div class="mi">retries: process.env.CI ? 2 : 0 &mdash; handle flakiness in CI</div>
+        <div class="mi">Upload playwright-report as artifact &mdash; downloadable for debugging</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;Playwright generates a GitHub Actions workflow file at .github/workflows/playwright.yml. It triggers on every push or PR to main, runs on a fresh Ubuntu runner, and goes through: checkout code, npm ci for dependencies, npx playwright install --with-deps to download browsers, then run tests. Credentials are stored as GitHub Secrets. I configure retries so flaky tests retry automatically. The HTML report is uploaded as an artifact with screenshots, videos, and traces for failed tests.&rdquo;</div>
+      <pre><span class="cm"># Key workflow steps</span>
+- uses: actions/checkout@v4
+- run: npm ci
+- run: npx playwright install --with-deps
+- run: npx playwright test
+  env:
+    LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
+- uses: actions/upload-artifact@v4
+  if: ${{ !cancelled() }}
+  with: { path: playwright-report/ }</pre>
+    </div>
+  </div>
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q9</span><span class="qtext">What is the difference between beforeEach and fixtures?</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag ts">Senior</span><span class="tag tg">Concept</span></div>
+      <span class="score sc-mi">Your score: 5/10 &mdash; strengthen this</span>
+      <div class="must"><div class="must-t">The key difference &mdash; say this clearly</div>
+        <div class="mi">beforeEach &mdash; scoped to one describe block in one file</div>
+        <div class="mi">Fixtures &mdash; reusable across ALL test files in the entire project</div>
+        <div class="mi">Fixtures are injected automatically via destructuring { loginPage }</div>
+        <div class="mi">Fixtures handle teardown automatically after use()</div>
+        <div class="mi">Use beforeEach for navigation in one block; fixtures for shared page objects</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;Both handle test setup but at different scopes. beforeEach runs before every test in a specific describe block &mdash; scoped to that one file. Fixtures are more powerful &mdash; defined once and injected into any test across any file in the project. For example my loginPage fixture is available to login tests, checkout tests, and profile tests without any setup code in those tests. Fixtures also handle teardown automatically &mdash; anything after use() runs after the test completes.&rdquo;</div>
+      <pre><span class="cm">// beforeEach &mdash; one file, one block</span>
+test.beforeEach(<span class="kw">async</span> ({ page }) => { <span class="kw">await</span> page.goto(<span class="st">'/login'</span>); });
+<span class="cm">// Fixture &mdash; entire project, any file</span>
+loginPage: <span class="kw">async</span> ({ page }, use) => {
+  <span class="kw">const</span> lp = <span class="kw">new</span> LoginPage(page);
+  <span class="kw">await</span> lp.goto();
+  <span class="kw">await</span> use(lp);       <span class="cm">// test runs here</span>
+  <span class="cm">// teardown here</span>
+}
+<span class="cm">// any test file</span>
+test(<span class="st">'login'</span>, <span class="kw">async</span> ({ loginPage }) => { ... });</pre>
+    </div>
+  </div>
+
+  <div class="qa-card" onclick="tog(this)">
+    <div class="qa-q"><span class="qbadge">Q10</span><span class="qtext">A test is passing locally but failing in CI. How do you debug it?</span><span class="chevron">&#9660;</span></div>
+    <div class="qa-body">
+      <div class="tags"><span class="tag ts">Senior</span><span class="tag tc">Common</span></div>
+      <span class="score sc-mi">Your score: 6/10 &mdash; strengthen this</span>
+      <div class="must"><div class="must-t">Lead with Trace Viewer &mdash; always</div>
+        <div class="mi">Download playwright-report artifact from GitHub Actions</div>
+        <div class="mi">npx playwright show-report &rarr; click failed test &rarr; Trace tab</div>
+        <div class="mi">Timing &mdash; CI machines are slower, elements take longer to appear</div>
+        <div class="mi">Headless vs headed &mdash; some elements behave differently headless</div>
+        <div class="mi">Missing env variables &mdash; secrets not configured in CI</div>
+        <div class="mi">Test data &mdash; exists locally but not in CI environment</div>
+      </div>
+      <div class="al">Ideal answer</div>
+      <div class="at">&ldquo;First I check if it&rsquo;s consistent or flaky by looking at CI run history and adding retries. Then I download the playwright-report artifact from GitHub Actions and open it with npx playwright show-report &mdash; the trace viewer lets me replay exactly what happened step by step with screenshots, network calls, and console errors. Common causes: timing issues because CI machines are slower, headless mode differences, missing environment variables, and test data that exists locally but not in CI.&rdquo;</div>
+      <pre><span class="cm">// Debug tools in order</span>
+npx playwright show-report           <span class="cm">// trace viewer &mdash; start here</span>
+npx playwright test --headed         <span class="cm">// see the browser</span>
+npx playwright test --debug          <span class="cm">// step through line by line</span>
+npx playwright codegen URL           <span class="cm">// find correct locators</span>
+<span class="kw">await</span> page.pause();                  <span class="cm">// pause at specific point</span></pre>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<!-- CHEAT -->
+<div class="section" id="cheat">
+  <div class="sec-h">Quick Reference Cheat Sheet</div>
+  <div class="sec-s">Everything in one place &mdash; locators, assertions, commands, patterns.</div>
+  <div class="cg">
+    <div class="cc"><div class="ct">Locator priority</div>
+      <div class="cr"><span class="hl">1.</span> getByRole('button', {name})</div>
+      <div class="cr"><span class="hl">2.</span> getByLabel('Email')</div>
+      <div class="cr"><span class="hl">3.</span> getByPlaceholder('Enter&hellip;')</div>
+      <div class="cr"><span class="hl">4.</span> getByText('text')</div>
+      <div class="cr"><span class="hl">5.</span> getByTestId('submit')</div>
+      <div class="cr"><span class="hl">6.</span> locator('#unique-id')</div>
+      <div class="cr"><span class="warn">7.</span> locator('.class') &larr; fragile</div>
+    </div>
+    <div class="cc"><div class="ct">Web-first assertions</div>
+      <div class="cr">toBeVisible() / toBeHidden()</div>
+      <div class="cr">toHaveText('exact')</div>
+      <div class="cr">toContainText('partial')</div>
+      <div class="cr">toBeEnabled() / toBeDisabled()</div>
+      <div class="cr">toHaveValue('input val')</div>
+      <div class="cr">toHaveURL('/dashboard')</div>
+      <div class="cr">toHaveCount(3)</div>
+      <div class="cr">toHaveAttribute('role', 'val')</div>
+    </div>
+    <div class="cc"><div class="ct">CLI commands</div>
+      <div class="cr">npx playwright test</div>
+      <div class="cr">npx playwright test --headed</div>
+      <div class="cr">npx playwright test --debug</div>
+      <div class="cr">npx playwright test --project=ios</div>
+      <div class="cr">npx playwright test --grep "login"</div>
+      <div class="cr">npx playwright show-report</div>
+      <div class="cr">npx playwright codegen URL</div>
+    </div>
+    <div class="cc"><div class="ct">Network mocking</div>
+      <div class="cr">route.fulfill({status, body})</div>
+      <div class="cr">route.abort()</div>
+      <div class="cr">route.continue()</div>
+      <div class="cr">route.fetch() then modify</div>
+      <div class="cr">Pattern: '**/api/**'</div>
+      <div class="cr">Pattern: '**/*.{png,jpg}'</div>
+    </div>
+    <div class="cc"><div class="ct">Authentication</div>
+      <div class="cr">global.setup.ts &rarr; login once</div>
+      <div class="cr">storageState({path:'auth.json'})</div>
+      <div class="cr">config: storageState:'auth.json'</div>
+      <div class="cr">test.use({storageState:{&hellip;}})</div>
+      <div class="cr">One file per user role</div>
+      <div class="cr">auth.json &rarr; .gitignore</div>
+    </div>
+    <div class="cc"><div class="ct">5 actionability checks</div>
+      <div class="cr"><span class="ok">1.</span> Attached to DOM</div>
+      <div class="cr"><span class="ok">2.</span> Visible</div>
+      <div class="cr"><span class="ok">3.</span> Stable (not animating)</div>
+      <div class="cr"><span class="ok">4.</span> Receives pointer events</div>
+      <div class="cr"><span class="ok">5.</span> Enabled</div>
+      <div class="cr">Retries every 16ms &rarr; 30s timeout</div>
+    </div>
+    <div class="cc"><div class="ct">Hooks execution order</div>
+      <div class="cr">1. outer beforeAll</div>
+      <div class="cr">2. inner beforeAll</div>
+      <div class="cr">3. outer beforeEach</div>
+      <div class="cr">4. inner beforeEach</div>
+      <div class="cr">5. test runs</div>
+      <div class="cr">6. inner afterEach</div>
+      <div class="cr">7. outer afterEach</div>
+      <div class="cr">8. inner / outer afterAll</div>
+    </div>
+    <div class="cc"><div class="ct">Mobile emulation</div>
+      <div class="cr">import { devices }</div>
+      <div class="cr">devices['iPhone 14']</div>
+      <div class="cr">devices['Pixel 7']</div>
+      <div class="cr">Set in projects[] config</div>
+      <div class="cr">codegen --device="iPhone 14"</div>
+      <div class="cr">70+ device profiles built in</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONCEPTS -->
+<div class="section" id="concepts">
+  <div class="sec-h">Key Concepts</div>
+  <div class="sec-s">Core patterns with code snippets for quick revision.</div>
+
+  <div class="conc-card" onclick="togC(this)">
+    <div class="conc-q">Fixtures vs beforeEach &mdash; the critical difference<span class="chevron">&#9660;</span></div>
+    <div class="conc-body">
+      <div class="at">beforeEach = one describe block, one file. Fixtures = entire project, any file. Fixtures are injected automatically and handle teardown after use().</div>
+      <pre><span class="cm">// fixtures.ts &mdash; define once, use everywhere</span>
+<span class="kw">export const</span> test = base.extend({
+  loginPage: <span class="kw">async</span> ({ page }, use) => {
+    <span class="kw">const</span> lp = <span class="kw">new</span> LoginPage(page);
+    <span class="kw">await</span> lp.goto();
+    <span class="kw">await</span> use(lp);
+  }
+});
+<span class="cm">// any test file</span>
+test(<span class="st">'works'</span>, <span class="kw">async</span> ({ loginPage }) => {
+  <span class="kw">await</span> loginPage.login(<span class="st">'user'</span>, <span class="st">'pass'</span>);
+});</pre>
+    </div>
+  </div>
+
+  <div class="conc-card" onclick="togC(this)">
+    <div class="conc-q">Strict mode violation &mdash; cause and fix<span class="chevron">&#9660;</span></div>
+    <div class="conc-body">
+      <div class="at">Playwright throws when a locator matches more than one element. Fix by making the locator more specific.</div>
+      <pre><span class="bad">// Matches h2 AND b inside it &rarr; strict mode violation</span>
+page.getByText(<span class="st">'Your password is invalid!'</span>)
+<span class="ok">// Target specific element by ID</span>
+page.locator(<span class="st">'#error'</span>)
+<span class="ok">// Filter by parent container</span>
+page.locator(<span class="st">'div'</span>).filter({ hasText: <span class="st">'invalid'</span> })</pre>
+    </div>
+  </div>
+
+  <div class="conc-card" onclick="togC(this)">
+    <div class="conc-q">Value matchers vs locator matchers &mdash; when to await<span class="chevron">&#9660;</span></div>
+    <div class="conc-body">
+      <div class="at">Locator matchers query the live DOM and auto-retry &mdash; always await. Value matchers check plain JS values &mdash; no await needed.</div>
+      <pre><span class="cm">// Locator matchers &mdash; await always</span>
+<span class="kw">await</span> expect(page.locator(<span class="st">'#error'</span>)).toBeVisible();
+<span class="cm">// Value matchers &mdash; no await</span>
+expect(response.status()).toBe(<span class="nm">200</span>);
+expect(body.title).toBe(<span class="st">'My Post'</span>);</pre>
+    </div>
+  </div>
+
+  <div class="conc-card" onclick="togC(this)">
+    <div class="conc-q">Chaining locators &mdash; scoping inside elements<span class="chevron">&#9660;</span></div>
+    <div class="conc-body">
+      <div class="at">Every locator method returns another locator scoped inside the previous result. This prevents strict mode violations on repeated elements.</div>
+      <pre>page.getByTestId(<span class="st">'order-row'</span>)              <span class="cm">// all rows</span>
+  .filter({ hasText: <span class="st">'Samsung Galaxy'</span> })   <span class="cm">// one row</span>
+  .locator(<span class="st">'.status'</span>)                      <span class="cm">// cell inside it</span></pre>
+    </div>
+  </div>
+
+  <div class="conc-card" onclick="togC(this)">
+    <div class="conc-q">API testing with the request fixture<span class="chevron">&#9660;</span></div>
+    <div class="conc-body">
+      <div class="at">Playwright has built-in API testing via the request fixture &mdash; no browser needed. Combine with UI tests for the API + UI hybrid pattern.</div>
+      <pre>test(<span class="st">'GET returns 200'</span>, <span class="kw">async</span> ({ request }) => {
+  <span class="kw">const</span> res = <span class="kw">await</span> request.get(<span class="st">'https://api.example.com/posts/1'</span>);
+  expect(res.status()).toBe(<span class="nm">200</span>);
+  <span class="kw">const</span> body = <span class="kw">await</span> res.json();
+  expect(body.id).toBe(<span class="nm">1</span>);
+});</pre>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="section" id="tools">
+  <div class="sec-h">Tools Comparison</div>
+  <div class="sec-s">Playwright vs Selenium vs Cypress vs WDIO &mdash; know this for interviews.</div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Feature</th><th class="cpw">Playwright</th><th>Selenium</th><th>Cypress</th><th>WDIO</th></tr></thead>
+      <tbody>
+        <tr><td>Created by</td><td>Microsoft (2020)</td><td>ThoughtWorks (2004)</td><td>Cypress.io (2018)</td><td>Community (2015)</td></tr>
+        <tr><td>Languages</td><td class="yes">JS, TS, Python, Java, C#</td><td class="yes">JS, Python, Java, C#, Ruby</td><td class="meh">JS/TS only</td><td class="meh">JS/TS only</td></tr>
+        <tr><td>Browsers</td><td class="yes">Chrome, Firefox, Safari</td><td class="yes">All incl IE</td><td class="no">No Safari</td><td class="yes">All browsers</td></tr>
+        <tr><td>Auto-wait</td><td class="yes">Yes &mdash; built in</td><td class="no">No &mdash; manual</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+        <tr><td>Parallel</td><td class="yes">Native</td><td class="meh">Via Grid (complex)</td><td class="meh">Paid dashboard</td><td class="yes">Yes</td></tr>
+        <tr><td>API testing</td><td class="yes">Built in</td><td class="no">No</td><td class="meh">cy.request()</td><td class="meh">Via plugins</td></tr>
+        <tr><td>Network mock</td><td class="yes">route()</td><td class="no">Limited</td><td class="yes">cy.intercept()</td><td class="yes">Yes</td></tr>
+        <tr><td>iFrames</td><td class="yes">Yes</td><td class="meh">Partial</td><td class="no">Poor</td><td class="yes">Yes</td></tr>
+        <tr><td>Mobile native</td><td class="no">Emulation only</td><td class="meh">Via Appium</td><td class="no">No</td><td class="yes">Via Appium</td></tr>
+        <tr><td>Trace viewer</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+        <tr><td>Test runner</td><td class="yes">Built in</td><td class="no">Separate tool needed</td><td class="yes">Built in</td><td class="yes">Built in</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ibox">Interview tip: "I choose Playwright for new projects &mdash; auto-waiting, built-in everything, WebKit support. Selenium for legacy enterprise needing IE. Cypress for frontend-only teams who don't need Safari. WDIO when the team needs web + native mobile in one JS framework."</div>
+</div>
+
+<!-- PROGRESS -->
+<div class="section" id="progress">
+  <div class="sec-h">My Progress</div>
+  <div class="sec-s">Full Playwright curriculum covered, with interview scores.</div>
+  <div class="ssumm">
+    <div class="sshdr">Interview performance</div>
+    <div class="srow"><span class="sq">Tell me about yourself</span><div class="bw"><div class="bar bg" style="width:80%"></div></div><span class="sn" style="color:#16a34a">8/10</span></div>
+    <div class="srow"><span class="sq">Playwright vs Selenium</span><div class="bw"><div class="bar bg" style="width:70%"></div></div><span class="sn" style="color:#16a34a">7/10</span></div>
+    <div class="srow"><span class="sq">Page Object Model</span><div class="bw"><div class="bar bg" style="width:80%"></div></div><span class="sn" style="color:#16a34a">8/10</span></div>
+    <div class="srow"><span class="sq">locator vs getByRole</span><div class="bw"><div class="bar bg" style="width:80%"></div></div><span class="sn" style="color:#16a34a">8/10</span></div>
+    <div class="srow"><span class="sq">Auto-waiting</span><div class="bw"><div class="bar ba" style="width:60%"></div></div><span class="sn" style="color:#d97706">6/10</span></div>
+    <div class="srow"><span class="sq">Authentication / storageState</span><div class="bw"><div class="bar bg" style="width:70%"></div></div><span class="sn" style="color:#16a34a">7/10</span></div>
+    <div class="srow"><span class="sq">Network mocking</span><div class="bw"><div class="bar bg" style="width:85%"></div></div><span class="sn" style="color:#16a34a">8.5/10</span></div>
+    <div class="srow"><span class="sq">CI/CD integration</span><div class="bw"><div class="bar bg" style="width:80%"></div></div><span class="sn" style="color:#16a34a">8/10</span></div>
+    <div class="srow"><span class="sq">beforeEach vs fixtures</span><div class="bw"><div class="bar ba" style="width:50%"></div></div><span class="sn" style="color:#d97706">5/10</span></div>
+    <div class="srow"><span class="sq">Debug CI failures</span><div class="bw"><div class="bar ba" style="width:60%"></div></div><span class="sn" style="color:#d97706">6/10</span></div>
+  </div>
+  <div class="wbox" style="margin-bottom:1.5rem"><strong>Strengthen before interview:</strong><br>
+    1. Auto-waiting &mdash; memorise the 5 checks: attached, visible, stable, enabled, pointer events<br>
+    2. beforeEach vs fixtures &mdash; "beforeEach = one file, fixtures = entire project"<br>
+    3. CI debugging &mdash; always lead with Trace Viewer and downloading the artifact
+  </div>
+  <div class="pg">
+    <div class="pi"><span class="pck">&#10003;</span>Setup &amp; config</div>
+    <div class="pi"><span class="pck">&#10003;</span>test &amp; expect</div>
+    <div class="pi"><span class="pck">&#10003;</span>Locators</div>
+    <div class="pi"><span class="pck">&#10003;</span>Auto-waiting</div>
+    <div class="pi"><span class="pck">&#10003;</span>Mobile emulation</div>
+    <div class="pi"><span class="pck">&#10003;</span>Page Object Model</div>
+    <div class="pi"><span class="pck">&#10003;</span>Fixtures &amp; hooks</div>
+    <div class="pi"><span class="pck">&#10003;</span>Authentication</div>
+    <div class="pi"><span class="pck">&#10003;</span>Network mocking</div>
+    <div class="pi"><span class="pck">&#10003;</span>API testing</div>
+    <div class="pi"><span class="pck">&#10003;</span>CI/CD integration</div>
+    <div class="pi"><span class="pck">&#10003;</span>Debugging &amp; Trace</div>
+  </div>
+</div>
+
+</main>
+<script>
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nbtn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function tog(card){
+  var open=card.classList.contains('open');
+  document.querySelectorAll('.qa-card.open').forEach(c=>c.classList.remove('open'));
+  if(!open)card.classList.add('open');
+}
+function togC(card){
+  var open=card.classList.contains('open');
+  document.querySelectorAll('.conc-card.open').forEach(c=>c.classList.remove('open'));
+  if(!open)card.classList.add('open');
+}
+function filterQA(val){
+  var q=val.toLowerCase();
+  document.querySelectorAll('#qa-list .qa-card').forEach(function(card){
+    var t=card.querySelector('.qtext').textContent.toLowerCase();
+    card.style.display=t.includes(q)?'':'none';
+  });
+}
+</script>
+</body>
+</html>
